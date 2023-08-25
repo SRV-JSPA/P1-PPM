@@ -23,6 +23,10 @@
             android:label="@string/title_activity_main_m"
             android:theme="@style/Theme.P1PPm" />
         <activity
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_main2"
+            android:exported="true"/>
+        <activity
             android:name=".MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main2"
