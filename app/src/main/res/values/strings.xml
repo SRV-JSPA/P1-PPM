@@ -2,4 +2,5 @@
     <string name="app_name">P1-PPm</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_main_m">MainActivityM</string>
+    <string name="title_activity_main_t">MainActivityT</string>
 </resources>
