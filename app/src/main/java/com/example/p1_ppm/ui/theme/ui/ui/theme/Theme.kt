@@ -1,4 +1,4 @@
-package com.example.p1_ppm.ui.theme
+package com.example.p1_ppm.ui.theme.ui.ui.theme
 
 import android.app.Activity
 import android.os.Build
