@@ -32,7 +32,7 @@ class Isesion : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    GreetingPreview()
                 }
             }
         }
@@ -129,6 +129,6 @@ fun sesion(usuario:String, contraseña:String) {
 @Composable
 fun GreetingPreview() {
     P1PPmTheme {
-
+        sesion(usuario = "UsuarioInicial", contraseña = "ContraseñaInicial")
     }
 }
