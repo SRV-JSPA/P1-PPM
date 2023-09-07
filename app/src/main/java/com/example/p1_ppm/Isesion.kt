@@ -129,6 +129,6 @@ fun sesion(usuario:String, contraseña:String) {
 @Composable
 fun GreetingPreview() {
     P1PPmTheme {
-
+        sesion("Juan","123")
     }
 }

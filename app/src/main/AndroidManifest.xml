@@ -40,16 +40,7 @@
         <activity
             android:name=".CalendarActivity"
             android:exported="true"
-            android:label="@string/title_activity_main2" />
-        <activity
-<<<<<<< Updated upstream
-            android:name=".Isesion"
-            android:exported="true"
-            tools:ignore="DuplicateActivity">
-=======
-            android:name=".MainActivity2"
-            android:exported="true" >
->>>>>>> Stashed changes
+            android:label="@string/title_activity_main2" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

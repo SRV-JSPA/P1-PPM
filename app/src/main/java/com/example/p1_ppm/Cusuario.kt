@@ -23,17 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Cusuario : ComponentActivity() {
-    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             P1PPmTheme {
-                navController = rememberNavController()
-                setupNavGraph(navController = navController)
             }
         }
     }
@@ -87,10 +87,11 @@ fun crearUsuario(navController: NavController) {
                 if(username==""|| password==""){
                     error = true
                 } else{
+                    /*
                     navController.navigate(route = Screens.LogIn.passUserAndPassword(
                         user = username,
                         password = password
-                    ))
+                    ))*/
                 }
 
 
@@ -115,6 +116,6 @@ fun crearUsuario(navController: NavController) {
 @Composable
 fun GreetingPreview2() {
     P1PPmTheme {
-
+        crearUsuario(navController = rememberNavController())
     }
 }
