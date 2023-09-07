@@ -8,26 +8,52 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.p1_ppm.ui.theme.ui.ui.theme.P1PPmTheme
 
 class MainActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            sesion()
+            P1PPmTheme {
+
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun sesion() {
+fun sesion(usuario:String, contraseña:String) {
+    var pantallalog by remember { mutableStateOf(0) }
+
+    // Agregar variables para almacenar datos de usuario y contraseña
+    var usuarioF = usuario
+    var contraseñaF = contraseña
+
+    var usuarioN by remember { mutableStateOf("") }
+    var contraN by remember { mutableStateOf("") }
+    var error by remember { mutableStateOf(false) }
+
+    Surface(
+
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,39 +67,61 @@ fun sesion() {
         )
 
         OutlinedTextField(
-            value = "Usuario",
-            onValueChange = {},
+            value = usuarioN,
+            onValueChange = { usuarioN = it },
             label = { Text(text = "Usuario") },
-            enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
         )
 
         OutlinedTextField(
-            value = "Contraseña",
-            onValueChange = {},
+            value = contraN,
+            onValueChange = { contraN = it },
             label = { Text(text = "Contraseña") },
-            enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         )
 
         Button(
-            onClick = {},
-            modifier = Modifier.fillMaxWidth(),
-            enabled = false
+            onClick = {
+
+
+                if (usuarioN == usuarioF && contraN == contraseñaF) {
+                    pantallalog = 1
+
+                    error = false
+                } else {
+
+                    error = true
+                }
+
+
+            },
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Iniciar sesión")
         }
+
+
+        if (error) {
+            Text(
+                text = "Usuario o contraseña incorrecta",
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+
+
     }
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun Previews() {
-    sesion()
+
 }
 
 

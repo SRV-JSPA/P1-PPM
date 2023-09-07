@@ -28,21 +28,11 @@
             android:label="@string/title_activity_main_m"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".ui.theme.MainActivityM"
-            android:exported="false"
-            android:label="@string/title_activity_main_m"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
             android:name=".CalendarActivity"
             android:exported="true"
             android:label="@string/title_activity_main2" />
         <activity
             android:name=".MainActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
