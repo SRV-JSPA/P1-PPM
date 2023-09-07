@@ -1,4 +1,3 @@
-
 package com.example.p1_ppm
 
 import android.os.Bundle
@@ -21,14 +20,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.p1_ppm.ui.theme.ui.ui.theme.P1PPmTheme
+import com.example.p1_ppm.ui.theme.P1PPmTheme
 
-class MainActivity2 : ComponentActivity() {
+class Isesion : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             P1PPmTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
 
+                }
             }
         }
     }
@@ -39,7 +44,7 @@ class MainActivity2 : ComponentActivity() {
 fun sesion(usuario:String, contraseña:String) {
     var pantallalog by remember { mutableStateOf(0) }
 
-    // Agregar variables para almacenar datos de usuario y contraseña
+
     var usuarioF = usuario
     var contraseñaF = contraseña
 
@@ -118,14 +123,12 @@ fun sesion(usuario:String, contraseña:String) {
 
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
-fun Previews() {
+fun GreetingPreview() {
+    P1PPmTheme {
 
+    }
 }
-
-
-
-
-
-

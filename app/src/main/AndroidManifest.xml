@@ -13,19 +13,14 @@
         android:theme="@style/Theme.P1PPm"
         tools:targetApi="31">
         <activity
-            android:name=".ui.theme.ui.MainActivityOT"
+            android:name=".Cusuario"
             android:exported="false"
-            android:label="@string/title_activity_main_ot"
+            android:label="@string/title_activity_cusuario"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".ui.theme.ui.MainActivityT"
+            android:name=".Isesion"
             android:exported="false"
-            android:label="@string/title_activity_main_t"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
-            android:name=".ui.theme.ui.MainActivityM"
-            android:exported="false"
-            android:label="@string/title_activity_main_m"
+            android:label="@string/title_activity_isesion"
             android:theme="@style/Theme.P1PPm" />
         <activity
             android:name=".CalendarActivity"
