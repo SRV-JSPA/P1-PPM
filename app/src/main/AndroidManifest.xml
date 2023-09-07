@@ -13,6 +13,11 @@
         android:theme="@style/Theme.P1PPm"
         tools:targetApi="31">
         <activity
+            android:name=".Navegador"
+            android:exported="false"
+            android:label="@string/title_activity_navegador"
+            android:theme="@style/Theme.P1PPm" />
+        <activity
             android:name=".Cusuario"
             android:exported="false"
             android:label="@string/title_activity_cusuario"
