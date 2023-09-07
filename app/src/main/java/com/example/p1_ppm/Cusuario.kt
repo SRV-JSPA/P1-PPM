@@ -27,13 +27,13 @@ import androidx.compose.ui.unit.dp
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Cusuario : ComponentActivity() {
-    lateinit var navController: NavHostController
+    //lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             P1PPmTheme {
-                navController = rememberNavController()
-                setupNavGraph(navController = navController)
+                //navController = rememberNavController()
+                //setupNavGraph(navController = navController)
             }
         }
     }
@@ -41,7 +41,7 @@ class Cusuario : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun crearUsuario(navController: NavController) {
+fun crearUsuario() {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf(false) }
@@ -87,10 +87,7 @@ fun crearUsuario(navController: NavController) {
                 if(username==""|| password==""){
                     error = true
                 } else{
-                    navController.navigate(route = Screens.LogIn.passUserAndPassword(
-                        user = username,
-                        password = password
-                    ))
+
                 }
 
 
