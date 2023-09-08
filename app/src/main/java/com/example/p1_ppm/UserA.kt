@@ -59,7 +59,6 @@ fun UserProfileScreen() {
         // Círculo con nombre y descripción
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp),
             contentAlignment = Alignment.Center
@@ -70,23 +69,22 @@ fun UserProfileScreen() {
                 Box(
                     modifier = Modifier
                         .size(100.dp)
-                        .background(Color.White, CircleShape)
+                        .background(Color(color3), CircleShape)
                 ) {
-                    // Aquí puedes agregar la imagen de perfil
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Nombre deL Alumno",
-                    color = Color.White
+                    color = Color(color2)
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = "Descripción del Alumno",
-                    color = Color.White
+                    color = Color(color2)
                 )
             }
         }

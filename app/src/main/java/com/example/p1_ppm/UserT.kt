@@ -65,10 +65,9 @@ fun UserProfileScreenT() {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Círculo con nombre y descripción
         Box(
             modifier = Modifier
-                .fillMaxWidth()
+
                 .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp),
             contentAlignment = Alignment.Center
@@ -79,7 +78,7 @@ fun UserProfileScreenT() {
                 Box(
                     modifier = Modifier
                         .size(100.dp)
-                        .background(Color.White, CircleShape)
+                        .background(Color(color3), CircleShape)
                 ) {
                     // Puedes agregar la imagen de perfil aquí
                 }
@@ -88,27 +87,25 @@ fun UserProfileScreenT() {
 
                 Text(
                     text = "Nombre del Tutor",
-                    color = Color.White
+                    color = Color(color2)
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = "Descripción del Tutor",
-                    color = Color.White
+                    color = Color(color2)
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Texto "Cursos que imparte"
         Text(
             text = "Cursos que imparte",
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        // Lista de cursos que imparte
         LazyColumn(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(8.dp)
@@ -159,7 +156,6 @@ val coursesListT = listOf(
     "Curso 1: Introducción a Jetpack Compose",
     "Curso 2: Desarrollo de Aplicaciones Android",
     "Curso 3: Diseño de Interfaces de Usuario",
-    // Agrega más cursos según sea necesario
 )
 
 
