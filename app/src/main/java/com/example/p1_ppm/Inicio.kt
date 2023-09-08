@@ -13,35 +13,39 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Inicio: ComponentActivity(){
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var navController: NavHostController
+
         super.onCreate(savedInstanceState)
         setContent {
             P1PPmTheme {
                 navController = rememberNavController()
                 setupNavGraph(navController = navController)
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-
-                }
             }
         }
     }
 }
 
 @Composable
-fun Inicio_Screen() {
+fun Inicio_Screen(navController: NavController) {
+
+    var usuarioN by remember { mutableStateOf(arrayListOf("Juan","Pedro"))}
+    var contraN by remember { mutableStateOf(arrayListOf("123","456")) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,7 +56,7 @@ fun Inicio_Screen() {
 
         Button(
             onClick = {
-
+                navController.navigate(route = Screens.LogIn.ruta)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -60,7 +64,7 @@ fun Inicio_Screen() {
         }
         Button(
             onClick = {
-
+                navController.navigate(route = Screens.SignIn.ruta)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -73,6 +77,6 @@ fun Inicio_Screen() {
 @Composable
 fun InicioPreview() {
     P1PPmTheme {
-        Inicio_Screen()
+        Inicio_Screen(navController = rememberNavController())
     }
 }

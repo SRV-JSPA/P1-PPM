@@ -20,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Isesion : ComponentActivity() {
@@ -41,7 +43,7 @@ class Isesion : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun sesion(usuario:String, contraseña:String) {
+fun sesion(usuario:String, contraseña:String, navController: NavController) {
     var pantallalog by remember { mutableStateOf(0) }
 
 
@@ -129,6 +131,7 @@ fun sesion(usuario:String, contraseña:String) {
 @Composable
 fun GreetingPreview() {
     P1PPmTheme {
-
+        sesion("Juan","123",navController = rememberNavController()
+        )
     }
 }

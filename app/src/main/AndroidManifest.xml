@@ -28,12 +28,18 @@
             android:label="@string/title_activity_cusuario"
             android:theme="@style/Theme.P1PPm" />
         <activity
+            android:name=".Isesion"
+            android:exported="false"
+            android:label="@string/title_activity_isesion"
+            android:theme="@style/Theme.P1PPm" />
+
+        <activity
             android:name=".CalendarActivity"
             android:exported="true"
             android:label="@string/title_activity_main2" />
         <activity
 
-            android:name=".Isesion"
+            android:name=".Inicio"
             android:exported="true">
 
             <intent-filter>
