@@ -21,6 +21,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 class UserA : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,6 @@ class UserA : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingPreview5()
                 }
             }
         }
@@ -40,7 +41,7 @@ class UserA : ComponentActivity() {
 }
 
 @Composable
-fun UserProfileScreen() {
+fun UserProfileScreen(navController: NavController) {
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
@@ -134,6 +135,8 @@ val coursesList = listOf(
 @Composable
 fun GreetingPreview5() {
     P1PPmTheme {
-        UserProfileScreen()
+        UserProfileScreen(
+            navController = rememberNavController()
+        )
     }
 }

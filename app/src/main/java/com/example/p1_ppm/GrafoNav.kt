@@ -38,7 +38,7 @@ fun setupNavGraph(
         composable(
             route = Screens.Test.ruta
         ){
-            calendarioAlumno_fun(navController = navController)
+            paginaPrincipal_fun()
         }
     }
 }
