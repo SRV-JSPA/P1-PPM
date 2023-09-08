@@ -74,14 +74,14 @@ fun UserProfileScreen() {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Nombre de Usuario",
+                    text = "Nombre deL Alumno",
                     color = Color.White
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Descripción del Usuario",
+                    text = "Descripción del Alumno",
                     color = Color.White
                 )
             }
@@ -125,7 +125,6 @@ val coursesList = listOf(
     "Curso 1: Introducción a Jetpack Compose",
     "Curso 2: Desarrollo de Aplicaciones Android",
     "Curso 3: Diseño de Interfaces de Usuario",
-    // Agrega más cursos según sea necesario
 )
 
 
