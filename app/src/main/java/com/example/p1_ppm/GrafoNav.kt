@@ -34,5 +34,11 @@ fun setupNavGraph(
         ){
             crearUsuario(navController = navController)
         }
+
+        composable(
+            route = Screens.Test.ruta
+        ){
+            calendarioAlumno_fun(navController = navController)
+        }
     }
 }

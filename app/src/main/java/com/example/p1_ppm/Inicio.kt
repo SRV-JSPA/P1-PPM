@@ -56,7 +56,7 @@ fun Inicio_Screen(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(route = Screens.LogIn.ruta)
+                navController.navigate(route = Screens.Test.ruta)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
