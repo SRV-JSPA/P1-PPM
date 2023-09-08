@@ -13,6 +13,16 @@
         android:theme="@style/Theme.P1PPm"
         tools:targetApi="31">
         <activity
+            android:name=".Hestudiante"
+            android:exported="false"
+            android:label="@string/title_activity_hestudiante"
+            android:theme="@style/Theme.P1PPm" />
+        <activity
+            android:name=".Htutor"
+            android:exported="false"
+            android:label="@string/title_activity_htutor"
+            android:theme="@style/Theme.P1PPm" />
+        <activity
             android:name=".UserT"
             android:exported="false"
             android:label="@string/title_activity_user_t"

@@ -10,4 +10,6 @@
     <string name="title_activity_busqueda">BusquedaA</string>
     <string name="title_activity_user">UserA</string>
     <string name="title_activity_user_t">UserT</string>
+    <string name="title_activity_htutor">Htutor</string>
+    <string name="title_activity_hestudiante">Hestudiante</string>
 </resources>
