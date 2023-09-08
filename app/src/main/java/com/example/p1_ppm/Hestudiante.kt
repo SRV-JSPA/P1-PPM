@@ -22,6 +22,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Hestudiante : ComponentActivity() {
@@ -44,7 +46,7 @@ class Hestudiante : ComponentActivity() {
 
 
 @Composable
-fun tablas() {
+fun Hestudiante_fun(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -105,6 +107,6 @@ fun tablaE(index: Int, text: String?) {
 @Composable
 fun GreetingPreview8() {
     P1PPmTheme {
-        tablas()
+        Hestudiante_fun(navController = rememberNavController())
     }
 }

@@ -1,13 +1,11 @@
 package com.example.p1_ppm
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.navigation.navArgs
 
 
 @Composable
@@ -25,20 +23,42 @@ fun setupNavGraph(
             Inicio_Screen(navController = navController)
         }
         composable(
-            route = Screens.LogIn.ruta
-        ){
-            sesion("Juan","123",navController = navController)
+            route = Screens.LogIn.ruta,
+            arguments = listOf(
+                navArgument(USUARIO_ARGUMENT_KEY1){
+                    type = NavType.StringType
+                }
+        )){
+            sesion(it.arguments?.getString(USUARIO_ARGUMENT_KEY1).toString(),
+                navController = navController)
         }
         composable(
-            route = Screens.SignIn.ruta
-        ){
-            crearUsuario(navController = navController)
+            route = Screens.SignIn.ruta,
+            arguments = listOf(
+                navArgument(SIGNIN_ARGUMENT_KEY1){
+                    type = NavType.StringType
+                }
+            )){
+            crearUsuario(it.arguments?.getString(SIGNIN_ARGUMENT_KEY1).toString(),
+                navController = navController)
         }
 
         composable(
-            route = Screens.Test.ruta
+            route = Screens.PaginaP.ruta,
+            arguments = listOf(
+                navArgument(PAGINAP_ARGUMENT_KEY1){
+                    type = NavType.BoolType
+                }
+            )
         ){
-            paginaPrincipal_fun()
+            val tem = it.arguments?.getBoolean(PAGINAP_ARGUMENT_KEY1)
+            if(tem==null){
+                paginaPrincipal_fun(false)
+            }
+            else{
+                paginaPrincipal_fun(tem)
+            }
+
         }
     }
 }

@@ -43,8 +43,9 @@ class Inicio: ComponentActivity(){
 @Composable
 fun Inicio_Screen(navController: NavController) {
 
-    var usuarioN by remember { mutableStateOf(arrayListOf("Juan","Pedro"))}
-    var contraN by remember { mutableStateOf(arrayListOf("123","456")) }
+    var usuarios by remember { mutableStateOf("Juan,123,true_Andres,456,false")}
+
+
 
     Column(
         modifier = Modifier
@@ -56,7 +57,9 @@ fun Inicio_Screen(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(route = Screens.Test.ruta)
+                navController.navigate(route = Screens.LogIn.passUserAndPassword(
+                    user = usuarios
+                ))
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -64,7 +67,9 @@ fun Inicio_Screen(navController: NavController) {
         }
         Button(
             onClick = {
-                navController.navigate(route = Screens.SignIn.ruta)
+                navController.navigate(route = Screens.SignIn.passUserAndPasswordSignIn(
+                    user = usuarios
+                ))
             },
             modifier = Modifier.fillMaxWidth()
         ) {

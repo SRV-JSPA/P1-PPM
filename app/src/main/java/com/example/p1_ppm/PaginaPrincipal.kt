@@ -27,22 +27,31 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun paginaPrincipal_fun() {
+fun paginaPrincipal_fun(tipo:Boolean) {
     val navController = rememberNavController()
     Scaffold (
-        bottomBar = {BottomBar(navController = navController)}
+        bottomBar = {BottomBar(navController = navController,tipo)}
     ){
         BottomNavBar_fun(navController = navController)
     }
 }
 
 @Composable
-fun BottomBar(navController:NavHostController) {
-    val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Calendario,
-        BottomBarScreen.Perfil
+fun BottomBar(navController:NavHostController, tipo:Boolean) {
+    var screens= listOf(
+        BottomBarScreen.HomeA,
+        BottomBarScreen.CalendarioA,
+        BottomBarScreen.BuscarA,
+        BottomBarScreen.PerfilA,
     )
+    if(tipo){
+        screens = listOf(
+            BottomBarScreen.HomeT,
+            BottomBarScreen.CalendarioT,
+            BottomBarScreen.PerfilT,
+        )
+    }
+
     val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
     val navStackBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackStackEntry?.destination

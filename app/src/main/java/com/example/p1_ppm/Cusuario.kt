@@ -43,10 +43,11 @@ class Cusuario : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun crearUsuario(navController: NavController) {
+fun crearUsuario(usuarios:String,navController: NavController) {
     var nombre by remember { mutableStateOf("") }
     var usuario by remember { mutableStateOf("") }
-    var contraseña by remember { mutableStateOf("") }
+    var contra by remember { mutableStateOf("") }
+    var tipo by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf(false) }
 
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
@@ -92,8 +93,8 @@ fun crearUsuario(navController: NavController) {
         )
 
         OutlinedTextField(
-            value = contraseña,
-            onValueChange = { contraseña = it },
+            value = contra,
+            onValueChange = { contra = it },
             label = { Text(text = "Ingrese la contraseña") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -107,10 +108,10 @@ fun crearUsuario(navController: NavController) {
         ) {
             Button(
                 onClick = {
-                    if (usuario == "" || contraseña == "") {
+                    if (usuario == "" || contra == "") {
                         error = true
                     } else {
-
+                        tipo = true
                     }
                 },
 
@@ -123,10 +124,10 @@ fun crearUsuario(navController: NavController) {
 
             Button(
                 onClick = {
-                    if (usuario == "" || contraseña == "") {
+                    if (usuario == "" || contra == "") {
                         error = true
                     } else {
-
+                        tipo = false
                     }
                 },
                 modifier = Modifier
@@ -138,7 +139,15 @@ fun crearUsuario(navController: NavController) {
 
         Button(
             onClick = {
-
+                if (usuario == "" || contra == "") {
+                    error = true
+                } else {
+                    var tem = usuarios
+                    tem = tem+"_"+usuario+","+contra+","+(tipo.toString())
+                    navController.navigate(route = Screens.LogIn.passUserAndPassword(
+                        user = tem
+                    ))
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -159,6 +168,6 @@ fun crearUsuario(navController: NavController) {
 @Composable
 fun GreetingPreview2() {
     P1PPmTheme {
-        crearUsuario(navController = rememberNavController())
+        crearUsuario("Juan,123,false",navController = rememberNavController())
     }
 }

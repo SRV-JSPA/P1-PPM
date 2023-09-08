@@ -24,6 +24,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Htutor : ComponentActivity() {
@@ -46,7 +48,7 @@ class Htutor : ComponentActivity() {
 
 
 @Composable
-fun CellList() {
+fun Htutor_fun(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -116,6 +118,6 @@ fun CellItem(index: Int, text: String?) {
 @Composable
 fun GreetingPreview7() {
     P1PPmTheme {
-       CellList()
+        Htutor_fun(navController = rememberNavController())
     }
 }

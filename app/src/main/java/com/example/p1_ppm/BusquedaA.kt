@@ -33,6 +33,8 @@ import androidx.compose.material3.*
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 class BusquedaA : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +55,7 @@ class BusquedaA : ComponentActivity() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SearchScreen() {
+fun SearchScreen(navController: NavController) {
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
@@ -103,7 +105,7 @@ fun SearchScreen() {
 @Composable
 fun GreetingPreview4() {
     P1PPmTheme {
-        SearchScreen()
+        SearchScreen(navController = rememberNavController())
 
     }
 }

@@ -30,12 +30,8 @@ class Isesion : ComponentActivity() {
         setContent {
             P1PPmTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
 
-                }
+
             }
         }
     }
@@ -43,12 +39,21 @@ class Isesion : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun sesion(usuario:String, contraseña:String, navController: NavController) {
+fun sesion(usuarios: String, navController: NavController) {
     var pantallalog by remember { mutableStateOf(0) }
 
 
-    var usuarioF = usuario
-    var contraseñaF = contraseña
+    var info = usuarios.split("_")
+    var usuarioF = arrayListOf<String>()
+    var contraF = arrayListOf<String>()
+    var tipoF = arrayListOf<Boolean>()
+
+    for(item in info){
+        usuarioF.add( item.split(",")[0])
+        contraF.add( item.split(",")[1])
+        tipoF.add( item.split(",")[2].toBoolean())
+    }
+
 
     var usuarioN by remember { mutableStateOf("") }
     var contraN by remember { mutableStateOf("") }
@@ -93,15 +98,23 @@ fun sesion(usuario:String, contraseña:String, navController: NavController) {
 
         Button(
             onClick = {
+                if (usuarioF != null) {
 
+                        if (usuarioF.contains(usuarioN)) {
+                            var tem = usuarioF.indexOf(usuarioN)
+                            if(usuarioN.equals(usuarioF.get(tem))&& contraN.equals(contraF.get(tem))){
+                                navController.navigate(route = Screens.PaginaP.passTipo(
+                                    tipo = tipoF.get(tem)
+                                ))
+                                error = false
+                            }else{
+                                error = true
+                            }
+                        } else {
 
-                if (usuarioN == usuarioF && contraN == contraseñaF) {
-                    pantallalog = 1
+                            error = true
+                        }
 
-                    error = false
-                } else {
-
-                    error = true
                 }
 
 
@@ -131,7 +144,8 @@ fun sesion(usuario:String, contraseña:String, navController: NavController) {
 @Composable
 fun GreetingPreview() {
     P1PPmTheme {
-        sesion("Juan","123",navController = rememberNavController()
+        sesion(
+            "Juan,123,false", navController = rememberNavController()
         )
     }
 }

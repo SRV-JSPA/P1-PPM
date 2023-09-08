@@ -52,7 +52,7 @@ class UserT : ComponentActivity() {
 
 
 @Composable
-fun UserProfileScreenT(navController: NavController) {
+fun UsuarioT_fun(navController: NavController) {
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
@@ -185,7 +185,7 @@ val coursesListT = listOf(
 @Composable
 fun GreetingPreview6() {
     P1PPmTheme {
-        UserProfileScreenT(
+        UsuarioT_fun(
             navController = rememberNavController()
         )
     }
