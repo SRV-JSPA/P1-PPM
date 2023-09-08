@@ -29,6 +29,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 class UserT : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +42,6 @@ class UserT : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingPreview6()
                 }
             }
         }
@@ -49,7 +50,7 @@ class UserT : ComponentActivity() {
 
 
 @Composable
-fun UserProfileScreenT() {
+fun UserProfileScreenT(navController: NavController) {
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
@@ -173,6 +174,8 @@ val coursesListT = listOf(
 @Composable
 fun GreetingPreview6() {
     P1PPmTheme {
-        UserProfileScreenT()
+        UserProfileScreenT(
+            navController = rememberNavController()
+        )
     }
 }

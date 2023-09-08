@@ -98,43 +98,12 @@ fun SearchScreen() {
     }
 }
 
-@Composable
-fun BottomNavigationBar() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .layoutId("bottomBar") // Asignamos un layoutId para la BottomAppBar
-            .height(56.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            BottomNavItem(text = "Botón 1", isSelected = true)
-            BottomNavItem(text = "Botón 2", isSelected = false)
-            BottomNavItem(text = "Botón 3", isSelected = false)
-            BottomNavItem(text = "Botón 4", isSelected = false)
-        }
-    }
-}
-
-@Composable
-fun BottomNavItem(text: String, isSelected: Boolean) {
-    Text(
-        text = text,
-        color = if (isSelected) Color.White else Color.Gray
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview4() {
     P1PPmTheme {
         SearchScreen()
-        BottomNavigationBar()
+
     }
 }
