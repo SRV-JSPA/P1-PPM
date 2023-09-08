@@ -26,8 +26,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -142,6 +144,15 @@ fun UserProfileScreenT(navController: NavController) {
         Text(
             text = "Comentarios",
             modifier = Modifier.padding(bottom = 8.dp)
+        )
+        var comentario by remember { mutableStateOf(TextFieldValue()) }
+        BasicTextField(
+            value = comentario,
+            onValueChange = { comentario = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+                .padding(16.dp)
         )
 
         // Lista de comentarios (puedes mostrar los comentarios aquí)
