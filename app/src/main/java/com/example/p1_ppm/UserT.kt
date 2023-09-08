@@ -122,8 +122,18 @@ fun UserProfileScreenT() {
             text = "Calificación",
             modifier = Modifier.padding(bottom = 8.dp)
         )
-
-        // Calificación (puedes usar un RatingBar u otro elemento de tu elección)
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            for (i in 1..5) {
+                // Aquí simplemente estoy usando un círculo para representar la estrella
+                // Puedes reemplazar esto con un Icon o una imagen de una estrella
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .background(Color.Yellow, CircleShape)
+                )
+            }
+        }
+            // Calificación (puedes usar un RatingBar u otro elemento de tu elección)
 
         Spacer(modifier = Modifier.height(16.dp))
 
