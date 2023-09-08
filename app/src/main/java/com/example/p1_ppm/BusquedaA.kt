@@ -54,6 +54,10 @@ class BusquedaA : ComponentActivity() {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen() {
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
     var searchText by remember { mutableStateOf("") }
 
     val keyboardController = LocalSoftwareKeyboardController.current

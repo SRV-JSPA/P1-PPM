@@ -41,6 +41,10 @@ class UserA : ComponentActivity() {
 
 @Composable
 fun UserProfileScreen() {
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
     Column(
         modifier = Modifier
             .fillMaxSize()
