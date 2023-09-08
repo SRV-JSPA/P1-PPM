@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,12 +40,19 @@ class Cusuario : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun crearUsuario(navController: NavController) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var nombre by remember { mutableStateOf("") }
+    var usuario by remember { mutableStateOf("") }
+    var contraseña by remember { mutableStateOf("") }
     var error by remember { mutableStateOf(false) }
+
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
 
 
     Surface(
@@ -64,9 +72,19 @@ fun crearUsuario(navController: NavController) {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
+
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
+            value = nombre,
+            onValueChange = { nombre = it },
+            label = { Text(text = "Ingrese su nombre") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = usuario,
+            onValueChange = { usuario = it },
             label = { Text(text = "Ingrese el usuario") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,31 +92,57 @@ fun crearUsuario(navController: NavController) {
         )
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = contraseña,
+            onValueChange = { contraseña = it },
             label = { Text(text = "Ingrese la contraseña") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Button(
+                onClick = {
+                    if (usuario == "" || contraseña == "") {
+                        error = true
+                    } else {
+
+                    }
+                },
+
+                modifier = Modifier
+                    .weight(1f)
+
+            ) {
+                Text(text = "Tutor")
+            }
+
+            Button(
+                onClick = {
+                    if (usuario == "" || contraseña == "") {
+                        error = true
+                    } else {
+
+                    }
+                },
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                Text(text = "Alumno")
+            }
+        }
 
         Button(
             onClick = {
-                if(username==""|| password==""){
-                    error = true
-                } else{
-                    /*
-                    navController.navigate(route = Screens.LogIn.passUserAndPassword(
-                        user = username,
-                        password = password
-                    ))*/
-                }
-
 
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Crear Usuario")
+            Text(text = "Listo")
         }
         if (error) {
             Text(
@@ -109,7 +153,6 @@ fun crearUsuario(navController: NavController) {
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
