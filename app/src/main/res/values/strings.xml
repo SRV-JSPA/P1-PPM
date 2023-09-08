@@ -8,4 +8,6 @@
     <string name="title_activity_cusuario">Cusuario</string>
     <string name="title_activity_navegador">Navegador</string>
     <string name="title_activity_busqueda">BusquedaA</string>
+    <string name="title_activity_user">UserA</string>
+    <string name="title_activity_user_t">UserT</string>
 </resources>
