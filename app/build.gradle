@@ -5,11 +5,15 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debugFinal {
+        }
+    }
     namespace 'com.example.p1_ppm'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.p1_ppm"
+        applicationId 'com.project.p1_ppm'
         minSdk 24
         targetSdk 34
         versionCode 1

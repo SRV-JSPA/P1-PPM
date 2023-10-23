@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "285851382823",
-    "project_id": "tutoresuvg",
-    "storage_bucket": "tutoresuvg.appspot.com"
+    "project_number": "23680839147",
+    "project_id": "uvgtutores",
+    "storage_bucket": "uvgtutores.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:285851382823:android:35c48b14c98ae3dfd18a02",
+        "mobilesdk_app_id": "1:23680839147:android:1ad34fa0d140726e78bdae",
         "android_client_info": {
-          "package_name": "com.example.p1_ppm"
+          "package_name": "com.project.p1_ppm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "285851382823-rdbvgb2kadctd5b039l53e47401mp7p0.apps.googleusercontent.com",
+          "client_id": "23680839147-skejukjgf6eg7pg3u8pds1gog2onvg1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.p1_ppm",
+            "certificate_hash": "fec0cf4bcf886030d3f03e3fa3bf6cc32ebcf2b5"
+          }
+        },
+        {
+          "client_id": "23680839147-ffdsuvjtdo0e4tgoqold525bnus50od6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB47vxwuh31GEvn4H-ilG1n1AADY2gTYH0"
+          "current_key": "AIzaSyADN5NUpvBN_zMcworeIwwmzL806bRymUU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "285851382823-rdbvgb2kadctd5b039l53e47401mp7p0.apps.googleusercontent.com",
+              "client_id": "23680839147-ffdsuvjtdo0e4tgoqold525bnus50od6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
