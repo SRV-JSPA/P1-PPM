@@ -1,4 +1,4 @@
-package com.example.p1_ppm
+package com.example.p1_ppm.screens.login.teacher
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,18 +21,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.p1_ppm.screens.login.student.CourseItem
+import com.example.p1_ppm.screens.login.student.coursesList
 
 class UserT : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

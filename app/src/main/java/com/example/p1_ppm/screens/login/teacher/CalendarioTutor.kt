@@ -1,4 +1,4 @@
-package com.example.p1_ppm
+package com.example.p1_ppm.screens.login.teacher
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class CalendarioTutor {

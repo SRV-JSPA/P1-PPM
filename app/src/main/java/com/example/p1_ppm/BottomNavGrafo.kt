@@ -4,6 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.p1_ppm.screens.login.student.Hestudiante_fun
+import com.example.p1_ppm.screens.login.student.SearchScreen
+import com.example.p1_ppm.screens.login.student.UsuarioA_fun
+import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
+import com.example.p1_ppm.screens.login.teacher.Htutor_fun
+import com.example.p1_ppm.screens.login.teacher.UsuarioT_fun
+import com.example.p1_ppm.screens.login.teacher.calendarioTutor_fun
 
 @Composable
 fun BottomNavBar_fun(navController:NavHostController) {

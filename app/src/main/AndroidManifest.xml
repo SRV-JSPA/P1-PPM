@@ -15,54 +15,45 @@
         android:theme="@style/Theme.P1PPm"
         tools:targetApi="31">
         <activity
-            android:name=".Hestudiante"
+            android:name=".screens.login.student.Hestudiante"
             android:exported="false"
             android:label="@string/title_activity_hestudiante"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".Htutor"
+            android:name=".screens.login.teacher.Htutor"
             android:exported="false"
             android:label="@string/title_activity_htutor"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".UserT"
+            android:name=".screens.login.teacher.UserT"
             android:exported="false"
             android:label="@string/title_activity_user_t"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".UserA"
+            android:name=".screens.login.student.UserA"
             android:exported="false"
             android:label="@string/title_activity_user"
             android:theme="@style/Theme.P1PPm" />
         <activity
-            android:name=".BusquedaA"
+            android:name=".screens.login.student.BusquedaA"
             android:exported="false"
             android:label="@string/title_activity_busqueda"
             android:theme="@style/Theme.P1PPm" />
+
         <activity
-            android:name=".Navegador"
-            android:exported="false"
-            android:label="@string/title_activity_navegador"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
-            android:name=".Cusuario"
-            android:exported="false"
-            android:label="@string/title_activity_cusuario"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
-            android:name=".Isesion"
-            android:exported="false"
-            android:label="@string/title_activity_isesion"
-            android:theme="@style/Theme.P1PPm" />
-        <activity
-            android:name=".Inicio"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.P1PPm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
     </application>
 
 </manifest>
