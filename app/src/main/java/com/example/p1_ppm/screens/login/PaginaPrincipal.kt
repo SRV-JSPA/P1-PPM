@@ -3,6 +3,7 @@ package com.example.p1_ppm.screens.login
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -56,6 +58,7 @@ import com.example.p1_ppm.Managers.AnalyticsManager
 import com.example.p1_ppm.Managers.AuthManager
 import com.example.p1_ppm.BottomBarScreen
 import com.example.p1_ppm.BottomNavBar_fun
+import com.example.p1_ppm.Managers.FirestoreManager
 import com.example.p1_ppm.R
 import com.example.p1_ppm.navigation.Routes
 
@@ -63,7 +66,7 @@ import com.example.p1_ppm.navigation.Routes
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthManager, navigation: NavController) {
+fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthManager, navigation: NavController, firestore: FirestoreManager) {
     val navController = rememberNavController()
     analytics.logScreenView(screenName = Routes.PaginaP.route)
     val user = auth.getUsuario()
@@ -71,10 +74,15 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
     var tipo by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
 
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
+
     val onLogoutConfirmed: () -> Unit = {
         auth.signOut()
         navigation.navigate(Routes.Login.route){
-            popUpTo(Routes.Home.route){
+            popUpTo(Routes.PaginaP.route){
                 inclusive = true
             }
         }
@@ -94,7 +102,10 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                 title = {
                     Row(
                         horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .background(Color(color4))
+                            .padding(8.dp)
                     ) {
                         if (user?.photoUrl != null) {
                             AsyncImage(
@@ -140,7 +151,10 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                     IconButton(
                         onClick = {
                             showDialog = true
-                        }
+                        },
+                        modifier = Modifier
+                            .background(Color(color4))
+                            .padding(8.dp)
                     ) {
                         Icon(
                             Icons.Outlined.ExitToApp,
@@ -148,7 +162,10 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                         )
                     }
 
-                    IconButton(onClick = { showmenu =! showmenu }) {
+                    IconButton(onClick = { showmenu =! showmenu },
+                        modifier = Modifier
+                            .background(Color(color4)) 
+                            .padding(8.dp)) {
                         Icon(
                             Icons.Outlined.Menu,
                             contentDescription = "Cambiar rol"
@@ -156,10 +173,19 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                     }
                     DropdownMenu(
                         expanded = showmenu,
-                        onDismissRequest = { showmenu = false }
+                        onDismissRequest = { showmenu = false },
+                        modifier = Modifier
+                            .background(Color(color4))
+                            .padding(8.dp)
                     ) {
-                        DropdownMenuItem(onClick = { tipo =!tipo }) {
-                            Button(onClick = {tipo =!tipo}) {
+                        DropdownMenuItem(onClick = { tipo =!tipo },
+                            modifier = Modifier
+                                .background(Color(color4))
+                                .padding(8.dp)) {
+                            Button(onClick = {tipo =!tipo},
+                                modifier = Modifier
+                                    .background(Color(color4))
+                                    .padding(8.dp)) {
                                 var estado: String
                                 if(tipo == false){
                                     estado = "Tutor"
@@ -186,7 +212,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                 }, onDismiss = { showDialog = false })
             }
 
-            BottomNavBar_fun(navController = navController)
+            BottomNavBar_fun(navController = navController, firestore = firestore)
         }
 
     }

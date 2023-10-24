@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.p1_ppm.screens.login.teacher.CellItem
+
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class Hestudiante : ComponentActivity() {
@@ -61,10 +61,6 @@ fun Hestudiante_fun(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CellItem(0, "Clases")
-            repeat(4) { index ->
-                CellItem(index + 1, null)
-            }
         }
 
 
@@ -75,10 +71,7 @@ fun Hestudiante_fun(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CellItem(5, "Alumno")
-            repeat(4) { index ->
-                CellItem(index + 6, null)
-            }
+
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.Managers.AnalyticsManager
 import com.example.p1_ppm.Managers.AuthManager
+import com.example.p1_ppm.Managers.FirestoreManager
 import com.example.p1_ppm.screens.Screen
 import com.example.p1_ppm.screens.login.paginaPrincipal_fun
 import com.example.p1_ppm.screens.auth.ForgotPassword
@@ -28,6 +29,8 @@ fun Navigation(context: Context, navController: NavHostController = rememberNavC
     val authManager: AuthManager = AuthManager(context)
 
     val user: FirebaseUser? = authManager.getUsuario()
+
+    val firestore: FirestoreManager = FirestoreManager(context)
 
     val ControllerNav: NavController = NavController(context)
 
@@ -60,7 +63,7 @@ fun Navigation(context: Context, navController: NavHostController = rememberNavC
             }
 
             composable(Routes.PaginaP.route){
-                paginaPrincipal_fun(tipo = true, analytics = analytics, auth = authManager, navigation = navController )
+                paginaPrincipal_fun(tipo = true, analytics = analytics, auth = authManager, navigation = navController, firestore = firestore )
             }
 
 

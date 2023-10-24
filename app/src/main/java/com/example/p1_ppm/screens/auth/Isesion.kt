@@ -87,7 +87,7 @@ fun Login(analytics: AnalyticsManager, auth: AuthManager, navigation: NavControl
                     val fireUser = auth.signInWithGoogleCredential(credential)
                     if(fireUser != null){
                         Toast.makeText(context, "Bienvenid@", Toast.LENGTH_SHORT).show()
-                        navigation.navigate(Routes.Home.route){
+                        navigation.navigate(Routes.PaginaP.route){
                             popUpTo(Routes.Login.route){
                                 inclusive = true
                             }

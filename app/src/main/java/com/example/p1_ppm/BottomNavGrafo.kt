@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.p1_ppm.Managers.FirestoreManager
 import com.example.p1_ppm.screens.login.student.Hestudiante_fun
 import com.example.p1_ppm.screens.login.student.SearchScreen
 import com.example.p1_ppm.screens.login.student.UsuarioA_fun
@@ -13,7 +14,7 @@ import com.example.p1_ppm.screens.login.teacher.UsuarioT_fun
 import com.example.p1_ppm.screens.login.teacher.calendarioTutor_fun
 
 @Composable
-fun BottomNavBar_fun(navController:NavHostController) {
+fun BottomNavBar_fun(navController:NavHostController, firestore: FirestoreManager) {
     NavHost(
         navController = navController,
         startDestination = BottomBarScreen.HomeA.ruta
@@ -31,7 +32,7 @@ fun BottomNavBar_fun(navController:NavHostController) {
             UsuarioA_fun(navController=navController)
         }
         composable(route = BottomBarScreen.HomeT.ruta){
-            Htutor_fun(navController = navController)
+            Htutor_fun(navController = navController, firestore = firestore)
         }
         composable(route = BottomBarScreen.CalendarioT.ruta){
             calendarioTutor_fun(navController = navController)
