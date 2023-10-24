@@ -13,7 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
@@ -21,68 +27,25 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
-class Htutor : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            P1PPmTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    GreetingPreview7()
-                }
-            }
-        }
-    }
-}
-
-
-
 @Composable
 fun Htutor_fun(navController: NavController) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Primera columna con 5 celdas
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CellItem(0, "Clases")
-            repeat(4) { index ->
-                CellItem(index + 1, null)
+    var showAddClassDialog by remember{ mutableStateOf(false)}
+    Scaffold (
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    showAddClassDialog = true
+                },
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Agregar clases")
+            }
+
+            if(showAddClassDialog){
+
             }
         }
+    ){
 
-        // Segunda columna con 5 celdas
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CellItem(5, "Tutor")
-            repeat(4) { index ->
-                CellItem(index + 6, null)
-            }
-        }
-    }
-
-    Button(
-        onClick = {  },
-        modifier = Modifier.padding(vertical = 200.dp, horizontal = 150.dp)
-
-    ) {
-        Text(text = "Asignar")
     }
 }
 
