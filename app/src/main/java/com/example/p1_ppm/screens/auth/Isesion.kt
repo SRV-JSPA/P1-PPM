@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -66,6 +67,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(analytics: AnalyticsManager, auth: AuthManager, navigation: NavController){
+
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
 
     var email by remember { mutableStateOf("") }
     var contra by remember { mutableStateOf("") }
@@ -149,6 +155,7 @@ fun Login(analytics: AnalyticsManager, auth: AuthManager, navigation: NavControl
                         emailPassSignIn(email, contra, auth, analytics, context, navigation)
                     }
                 },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(color3)),
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -217,13 +224,17 @@ fun SocialMediaButton(onClick: () -> Unit, text: String, icon: Int, color: Color
     var click by remember { mutableStateOf(false) }
     Surface(
         onClick = onClick,
-        modifier = Modifier.padding(start = 40.dp, end = 40.dp).clickable { click = !click },
+        modifier = Modifier
+            .padding(start = 40.dp, end = 40.dp)
+            .clickable { click = !click },
         shape = RoundedCornerShape(50),
         border = BorderStroke(width = 1.dp, color = if(icon == R.drawable.ic_incognito) color else Color.Gray),
         color = color
     ) {
         Row(
-            modifier = Modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

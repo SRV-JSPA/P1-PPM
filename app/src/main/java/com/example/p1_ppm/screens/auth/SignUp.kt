@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
+import androidx.compose.material3.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -36,10 +36,19 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.material.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.contentColorFor
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.Managers.AnalyticsManager
 import com.example.p1_ppm.Managers.AuthManager
 import com.example.p1_ppm.Managers.AuthRes
 import com.example.p1_ppm.navigation.Routes
+import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
+import com.example.p1_ppm.ui.theme.P1PPmTheme
 import com.example.p1_ppm.ui.theme.Purple40
 
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -48,6 +57,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 fun SignUp(analytics: AnalyticsManager, auth: AuthManager, navigation: NavController){
     analytics.logScreenView(screenName = Routes.SignUp.route)
     val context = LocalContext.current
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
     var email by remember { mutableStateOf("")}
     var contra by remember { mutableStateOf("")}
 
@@ -76,7 +86,9 @@ fun SignUp(analytics: AnalyticsManager, auth: AuthManager, navigation: NavContro
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             onValueChange = {contra = it})
         Spacer(modifier = Modifier.height(30.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp )){
+        Box(modifier = Modifier
+            .padding(40.dp, 0.dp, 40.dp, 0.dp )
+        ) {
             Button(
                 onClick = {
                     scope.launch {
@@ -84,6 +96,7 @@ fun SignUp(analytics: AnalyticsManager, auth: AuthManager, navigation: NavContro
                     }
                 },
                 shape = RoundedCornerShape(50.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(color3)),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
