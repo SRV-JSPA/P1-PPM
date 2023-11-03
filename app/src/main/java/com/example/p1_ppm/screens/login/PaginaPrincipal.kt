@@ -159,7 +159,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
 
                     IconButton(onClick = { showmenu =! showmenu },
                         modifier = Modifier
-                            .background(Color(color4)) 
+                            .background(Color(color4))
                             .padding(8.dp)) {
                         Icon(
                             Icons.Outlined.Menu,
@@ -240,7 +240,7 @@ fun LogoutDialog(onConfirmLogout: () -> Unit, onDismiss: () -> Unit){
 
 @Composable
 fun BottomBar(navController:NavHostController, tipo:Boolean) {
-    var screens = remember(tipo) {
+    val screens = remember(tipo) {
         if (tipo) {
             listOf(
                 BottomBarScreen.HomeT,
@@ -254,6 +254,7 @@ fun BottomBar(navController:NavHostController, tipo:Boolean) {
                 BottomBarScreen.BuscarA,
                 BottomBarScreen.PerfilA,
             )
+
         }
     }
 
@@ -290,6 +291,6 @@ fun RowScope.AddItem(
                 popUpTo(navController.graph.id)
                 launchSingleTop = true
             }
-        },
+        }
     )
 }

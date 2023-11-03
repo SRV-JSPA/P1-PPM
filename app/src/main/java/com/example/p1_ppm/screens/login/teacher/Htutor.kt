@@ -31,8 +31,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Htutor_fun(navController: NavController, firestore: FirestoreManager) {
     var showAddClassDialog by remember{ mutableStateOf(false)}
@@ -62,12 +62,12 @@ fun Htutor_fun(navController: NavController, firestore: FirestoreManager) {
                 )
             }
         }
-    ){
+    ){ _ ->
         if(!clases.isNullOrEmpty()){
             LazyColumn{
-                clases.forEach{
+                clases.forEach{clase ->
                     item {
-                        ClaseItem(clase = it, firestore = firestore)
+                        ClaseItem(clase = clase, firestore = firestore)
                     }
                 }
             }
@@ -112,36 +112,45 @@ fun ClaseItem(clase: Clases, firestore: FirestoreManager) {
     }
 
     Card(
-        modifier = Modifier.padding(6.dp),
+        modifier = Modifier
+            .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 0.dp)
+            .fillMaxWidth()
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .padding(12.dp)
                 .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = clase.Nclase,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = clase.nota,
-                fontWeight = FontWeight.Thin,
-                fontSize = 13.sp,
-                lineHeight = 15.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = clase.nombre,
-                fontWeight = FontWeight.Thin,
-                fontSize = 13.sp,
-                lineHeight = 15.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = clase.numero,
-                fontWeight = FontWeight.Thin,
-                fontSize = 13.sp,
-                lineHeight = 15.sp)
-            IconButton(
-                onClick = { showDeleteNoteDialog = true },
-            ) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete Icon")
+            Column (modifier = Modifier.weight(3f)){
+                Text(text = clase.Nclase,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = clase.nota,
+                    fontWeight = FontWeight.Thin,
+                    fontSize = 13.sp,
+                    lineHeight = 15.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = clase.nombre,
+                    fontWeight = FontWeight.Thin,
+                    fontSize = 13.sp,
+                    lineHeight = 15.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = clase.numero,
+                    fontWeight = FontWeight.Thin,
+                    fontSize = 13.sp,
+                    lineHeight = 15.sp)
             }
+            Row(modifier = Modifier.weight(3f), horizontalArrangement = Arrangement.Center) {
+                IconButton(
+                    onClick = { showDeleteNoteDialog = true },
+                ) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete Icon")
+                }
+            }
+
         }
     }
 }

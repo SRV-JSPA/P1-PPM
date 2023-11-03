@@ -44,11 +44,7 @@ sealed class BottomBarScreen(
         titulo = "Calendario",
         icono = Icons.Default.DateRange
     )
-    object BuscarT : BottomBarScreen(
-        ruta = "buscar",
-        titulo = "buscar",
-        icono = Icons.Default.Search
-    )
+
     object PerfilT : BottomBarScreen(
         ruta = "perfil",
         titulo = "perfil",

@@ -19,7 +19,7 @@ fun BottomNavBar_fun(navController:NavHostController, firestore: FirestoreManage
     val firestore = FirestoreManager(context)
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreen.HomeT.ruta
+        startDestination = BottomBarScreen.HomeA.ruta
     ){
         composable(route = BottomBarScreen.HomeA.ruta){
             Hestudiante_fun(navController = navController)
