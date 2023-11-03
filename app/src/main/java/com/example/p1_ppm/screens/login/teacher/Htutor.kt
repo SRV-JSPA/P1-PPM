@@ -52,9 +52,9 @@ fun Htutor_fun(navController: NavController, firestore: FirestoreManager) {
             }
             if(showAddClassDialog){
                 AddClaseDialog(
-                    onClaseAdded = {clases ->
+                    onClaseAdded = {clase ->
                         scope.launch {
-                            firestore.agregarClase(clases)
+                            firestore.agregarClase(clase)
                         }
                         showAddClassDialog = false
                     },

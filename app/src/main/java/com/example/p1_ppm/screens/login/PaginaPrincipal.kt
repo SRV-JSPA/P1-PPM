@@ -73,6 +73,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
 
     var tipo by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
@@ -87,12 +88,6 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
             }
         }
     }
-
-
-
-
-
-
 
 
     Scaffold(
@@ -182,7 +177,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                             modifier = Modifier
                                 .background(Color(color4))
                                 .padding(8.dp)) {
-                            Button(onClick = {tipo =!tipo},
+                            Button(onClick = {tipo = !tipo},
                                 modifier = Modifier
                                     .background(Color(color4))
                                     .padding(8.dp)) {
@@ -212,7 +207,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                 }, onDismiss = { showDialog = false })
             }
 
-            BottomNavBar_fun(navController = navController, firestore = firestore)
+            BottomNavBar_fun(navController = navController, firestore = firestore, context = context)
         }
 
     }

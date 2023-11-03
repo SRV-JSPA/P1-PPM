@@ -1,5 +1,6 @@
 package com.example.p1_ppm
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,10 +15,11 @@ import com.example.p1_ppm.screens.login.teacher.UsuarioT_fun
 import com.example.p1_ppm.screens.login.teacher.calendarioTutor_fun
 
 @Composable
-fun BottomNavBar_fun(navController:NavHostController, firestore: FirestoreManager) {
+fun BottomNavBar_fun(navController:NavHostController, firestore: FirestoreManager, context: Context) {
+    val firestore = FirestoreManager(context)
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreen.HomeA.ruta
+        startDestination = BottomBarScreen.HomeT.ruta
     ){
         composable(route = BottomBarScreen.HomeA.ruta){
             Hestudiante_fun(navController = navController)

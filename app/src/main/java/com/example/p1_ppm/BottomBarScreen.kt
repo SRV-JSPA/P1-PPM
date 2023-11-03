@@ -14,8 +14,8 @@ sealed class BottomBarScreen(
     val icono:ImageVector
 ){
     object HomeA : BottomBarScreen(
-        ruta = "home",
-        titulo = "home",
+        ruta = "homeA",
+        titulo = "homeA",
         icono = Icons.Default.Home
     )
     object CalendarioA : BottomBarScreen(
