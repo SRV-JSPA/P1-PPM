@@ -10,68 +10,65 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.p1_ppm.Managers.FirestoreManager
+import androidx.navigation.NavHostController
+import com.example.p1_ppm.Managers.AuthManager
+import com.example.p1_ppm.Managers.RealtimeManager
 import com.example.p1_ppm.Model.Clases
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Htutor_fun(navController: NavController, firestore: FirestoreManager) {
-    var showAddClassDialog by remember{ mutableStateOf(false)}
+fun Htutor_fun(navController: NavHostController, realtime: RealtimeManager, authManager: AuthManager) {
+    var showAddClaseDialog by remember { mutableStateOf(false) }
 
-    val clases by firestore.getClasesFlow().collectAsState(emptyList())
+    val clases by realtime.getClasesFlow().collectAsState(emptyList())
 
-    val scope = rememberCoroutineScope()
-
-    Scaffold (
+    Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    showAddClassDialog = true
+                    showAddClaseDialog = true
                 },
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Agregar clase")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Clase")
             }
-            if(showAddClassDialog){
+
+            if (showAddClaseDialog) {
                 AddClaseDialog(
-                    onClaseAdded = {clase ->
-                        scope.launch {
-                            firestore.agregarClase(clase)
-                        }
-                        showAddClassDialog = false
+                    onClaseAdded = { clase ->
+                        realtime.addClase(clase)
+                        showAddClaseDialog = false
                     },
-                    onDialogDismissed = { showAddClassDialog = false},
+                    onDialogDismissed = { showAddClaseDialog = false },
+                    authManager = authManager,
                 )
             }
         }
-    ){ _ ->
-        if(!clases.isNullOrEmpty()){
-            LazyColumn{
-                clases.forEach{clase ->
+    ) { _  ->
+        if(!clases.isNullOrEmpty()) {
+            LazyColumn {
+                clases.forEach { clase ->
                     item {
-                        ClaseItem(clase = clase, firestore = firestore)
+                        ClaseItem(clase = clase, realtime = realtime)
                     }
                 }
             }
-        } else{
+        } else {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -79,89 +76,132 @@ fun Htutor_fun(navController: NavController, firestore: FirestoreManager) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier.size(100.dp))
+                Icon(imageVector = Icons.Default.Person, contentDescription = null, modifier = Modifier.size(100.dp))
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = "No se encontraron \nClases",
-                    fontSize = 18.sp, fontWeight = FontWeight.Thin,
-                    textAlign = TextAlign.Center)
+                    fontSize = 18.sp, fontWeight = FontWeight.Thin, textAlign = TextAlign.Center)
             }
         }
     }
 }
 
 @Composable
-fun ClaseItem(clase: Clases, firestore: FirestoreManager) {
-    var showDeleteNoteDialog by remember { mutableStateOf(false) }
+fun ClaseItem(clase: Clases, realtime: RealtimeManager) {
+    var showDeleteClaseDialog by remember { mutableStateOf(false) }
 
-    val onDeleteNoteConfirmed: () -> Unit = {
-        CoroutineScope(Dispatchers.Default).launch {
-            firestore.deleteClase(clase.id ?: "")
-        }
+    var showEditClaseDialog by remember { mutableStateOf(false) }
+
+    val onDeleteClaseConfirmed: () -> Unit = {
+        realtime.deleteClase(clase.key ?: "")
     }
 
-    if (showDeleteNoteDialog) {
+    val onEditClaseConfirmed: () -> Unit = {
+        realtime.updateClase(clase.key ?: "", clase)
+    }
+
+    if (showDeleteClaseDialog) {
         DeleteClaseDialog(
             onConfirmDelete = {
-                onDeleteNoteConfirmed()
-                showDeleteNoteDialog = false
+                onDeleteClaseConfirmed()
+                showDeleteClaseDialog = false
             },
             onDismiss = {
-                showDeleteNoteDialog = false
+                showDeleteClaseDialog = false
+            }
+        )
+    }
+
+    if (showEditClaseDialog) {
+        EditClaseDialog(
+            onConfirmDelete = {
+                onEditClaseConfirmed()
+                showEditClaseDialog = false
+            },
+            onDismiss = {
+                showEditClaseDialog = false
             }
         )
     }
 
     Card(
         modifier = Modifier
-            .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 0.dp)
-            .fillMaxWidth()
-    ) {
+            .padding(start = 15.dp, end = 15.dp, top = 20.dp, bottom = 0.dp)
+            .fillMaxWidth())
+    {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column (modifier = Modifier.weight(3f)){
-                Text(text = clase.Nclase,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = clase.nota,
+            Column(modifier = Modifier.weight(3f)) {
+                Text(
+                    text = clase.Nclase,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = clase.nota,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = clase.nombre,
                     fontWeight = FontWeight.Thin,
-                    fontSize = 13.sp,
-                    lineHeight = 15.sp)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = clase.nombre,
-                    fontWeight = FontWeight.Thin,
-                    fontSize = 13.sp,
-                    lineHeight = 15.sp)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = clase.numero,
-                    fontWeight = FontWeight.Thin,
-                    fontSize = 13.sp,
-                    lineHeight = 15.sp)
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = clase.numero,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
             }
-            Row(modifier = Modifier.weight(3f), horizontalArrangement = Arrangement.Center) {
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.Bottom,
+            ) {
                 IconButton(
-                    onClick = { showDeleteNoteDialog = true },
+                    onClick = {
+                        showDeleteClaseDialog = true
+                    },
                 ) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete Icon")
                 }
             }
-
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.Top,
+            ) {
+                IconButton(
+                    onClick = {
+                        showDeleteClaseDialog = true
+                    },
+                ) {
+                    Icon(imageVector = Icons.Default.Create, contentDescription = "Edit icon")
+                }
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit) {
-    var nClase by remember { mutableStateOf("") }
+fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit, authManager: AuthManager) {
+    var Nclase by remember { mutableStateOf("") }
     var nota by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
     var numero by remember { mutableStateOf("") }
+    var uid = authManager.getUsuario()?.uid
 
     AlertDialog(
         onDismissRequest = {},
@@ -169,13 +209,14 @@ fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit
         confirmButton = {
             Button(
                 onClick = {
-                    val NClase = Clases(
-                        Nclase = nClase,
+                    val newClase = Clases(
+                        Nclase = Nclase,
                         nota = nota,
                         nombre = nombre,
-                        numero = numero)
-                    onClaseAdded(NClase)
-                    nClase = ""
+                        numero = numero,
+                        uid = uid.toString())
+                    onClaseAdded(newClase)
+                    Nclase = ""
                     nota = ""
                     nombre = ""
                     numero = ""
@@ -196,31 +237,31 @@ fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit
         text = {
             Column {
                 TextField(
-                    value = nClase,
-                    onValueChange = { nClase = it},
+                    value = Nclase,
+                    onValueChange = { Nclase = it },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    label = { Text(text = "Nombre de la clase")}
+                    label = { Text(text = "Nombre de la clase") }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = nota,
-                    onValueChange = { nota = it},
+                    onValueChange = { nota = it },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    label = { Text(text = "Nota obtenida en esa clase")}
+                    label = { Text(text = "Nota") }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = nombre,
-                    onValueChange = { nombre = it},
+                    onValueChange = { nombre = it },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    label = { Text(text = "Nombre del tutor")}
+                    label = { Text(text = "Nombre") }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = numero,
-                    onValueChange = { numero = it},
+                    onValueChange = { numero = it },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
-                    label = { Text(text = "Contacto del tutor")}
+                    label = { Text(text = "Número telefónico") }
                 )
             }
         }
@@ -231,7 +272,30 @@ fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit
 fun DeleteClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Eliminar Clase") },
+        title = { Text("Eliminar clase") },
+        text = { Text("¿Estás seguro que deseas eliminar la clase?") },
+        confirmButton = {
+            Button(
+                onClick = onConfirmDelete
+            ) {
+                Text("Aceptar")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = onDismiss
+            ) {
+                Text("Cancelar")
+            }
+        }
+    )
+}
+
+@Composable
+fun EditClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Eliminar clase") },
         text = { Text("¿Estás seguro que deseas eliminar la clase?") },
         confirmButton = {
             Button(

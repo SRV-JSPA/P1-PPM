@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
+/*
 class FirestoreManager(context: Context) {
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -47,3 +48,4 @@ class FirestoreManager(context: Context) {
         awaitClose{suscription.remove()}
     }
 }
+*/
