@@ -45,6 +45,8 @@ fun UsuarioA_fun(navController: NavController) {
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
     val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,8 +70,10 @@ fun UsuarioA_fun(navController: NavController) {
             ) {
                 Box(
                     modifier = Modifier
+
                         .size(100.dp)
                         .background(Color(color3), CircleShape)
+
                 ) {
                 }
 
