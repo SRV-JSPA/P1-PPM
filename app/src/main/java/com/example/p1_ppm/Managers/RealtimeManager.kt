@@ -27,7 +27,7 @@ class RealtimeManager(context: Context) {
         databaseReference.child(claseId).removeValue()
     }
 
-    fun updateClase(claseId: String, updateClase: Clases) {
+    fun updateClase(claseId: String, updateClase: Any?) {
         databaseReference.child(claseId).setValue(updateClase)
     }
 

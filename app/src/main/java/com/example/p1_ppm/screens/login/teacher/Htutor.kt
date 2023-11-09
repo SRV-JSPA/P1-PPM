@@ -29,6 +29,7 @@ import androidx.navigation.NavHostController
 import com.example.p1_ppm.Managers.AuthManager
 import com.example.p1_ppm.Managers.RealtimeManager
 import com.example.p1_ppm.Model.Clases
+import com.google.firebase.database.FirebaseDatabase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,7 +65,7 @@ fun Htutor_fun(navController: NavHostController, realtime: RealtimeManager, auth
             LazyColumn {
                 clases.forEach { clase ->
                     item {
-                        ClaseItem(clase = clase, realtime = realtime)
+                        ClaseItem(clase = clase, realtime = realtime, authManager = authManager)
                     }
                 }
             }
@@ -86,7 +87,7 @@ fun Htutor_fun(navController: NavHostController, realtime: RealtimeManager, auth
 }
 
 @Composable
-fun ClaseItem(clase: Clases, realtime: RealtimeManager) {
+fun ClaseItem(clase: Clases, realtime: RealtimeManager, authManager: AuthManager) {
     var showDeleteClaseDialog by remember { mutableStateOf(false) }
 
     var showEditClaseDialog by remember { mutableStateOf(false) }
@@ -113,7 +114,8 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager) {
 
     if (showEditClaseDialog) {
         EditClaseDialog(
-            onConfirmDelete = {
+            clase = clase,
+            onClaseUpdated = { updatedClase ->
                 onEditClaseConfirmed()
                 showEditClaseDialog = false
             },
@@ -122,6 +124,8 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager) {
             }
         )
     }
+
+
 
     Card(
         modifier = Modifier
@@ -184,7 +188,7 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager) {
             ) {
                 IconButton(
                     onClick = {
-                        showDeleteClaseDialog = true
+                        showEditClaseDialog = true
                     },
                 ) {
                     Icon(imageVector = Icons.Default.Create, contentDescription = "Edit icon")
@@ -291,25 +295,85 @@ fun DeleteClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
+fun EditClaseDialog(
+    clase: Clases,
+    onClaseUpdated: (Clases) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var Nclase by remember { mutableStateOf(clase.Nclase) }
+    var nota by remember { mutableStateOf(clase.nota) }
+    var nombre by remember { mutableStateOf(clase.nombre) }
+    var numero by remember { mutableStateOf(clase.numero) }
+
     AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Eliminar clase") },
-        text = { Text("¿Estás seguro que deseas eliminar la clase?") },
+        onDismissRequest = { onDismiss() },
+        title = { Text(text = "Editar Clase") },
         confirmButton = {
             Button(
-                onClick = onConfirmDelete
+                onClick = {
+                    val updatedClase = Clases(
+                        Nclase = Nclase,
+                        nota = nota,
+                        nombre = nombre,
+                        numero = numero,
+                        uid = clase.uid
+                    )
+                    onClaseUpdated(updatedClase)
+                    onDismiss()
+                }
             ) {
-                Text("Aceptar")
+                Text(text = "Actualizar")
             }
         },
         dismissButton = {
             Button(
-                onClick = onDismiss
+                onClick = {
+                    onDismiss()
+                }
             ) {
-                Text("Cancelar")
+                Text(text = "Cancelar")
+            }
+        },
+        text = {
+            Column {
+                TextField(
+                    value = Nclase,
+                    onValueChange = { Nclase = it },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+                    label = { Text(text = "Nombre de la clase") }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TextField(
+                    value = nota,
+                    onValueChange = { nota = it },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+                    label = { Text(text = "Nota") }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TextField(
+                    value = nombre,
+                    onValueChange = { nombre = it },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+                    label = { Text(text = "Nombre") }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TextField(
+                    value = numero,
+                    onValueChange = { numero = it },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
+                    label = { Text(text = "Número telefónico") }
+                )
             }
         }
     )
+}
+
+
+@Composable
+fun updateClases(uid:String, Nclase: String, nota: String, nombre: String, numero:String){
+    val dbRef = FirebaseDatabase.getInstance().getReference("clases").child(uid)
+    val claseInfo = Clases(Nclase,nota, nombre, numero, uid)
+    dbRef.setValue(claseInfo)
 }
