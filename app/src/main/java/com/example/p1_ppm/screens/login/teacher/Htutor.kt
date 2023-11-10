@@ -96,9 +96,7 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager, authManager: AuthManager
         realtime.deleteClase(clase.key ?: "")
     }
 
-    val onEditClaseConfirmed: () -> Unit = {
-        realtime.updateClase(clase.key ?: "", clase)
-    }
+
 
     if (showDeleteClaseDialog) {
         DeleteClaseDialog(
@@ -115,13 +113,15 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager, authManager: AuthManager
     if (showEditClaseDialog) {
         EditClaseDialog(
             clase = clase,
-            onClaseUpdated = { updatedClase ->
-                onEditClaseConfirmed()
+            onClaseUpdated = {
+
                 showEditClaseDialog = false
             },
             onDismiss = {
                 showEditClaseDialog = false
-            }
+            },
+            realtime = realtime,
+            authManager = authManager
         )
     }
 
@@ -300,12 +300,16 @@ fun DeleteClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
 fun EditClaseDialog(
     clase: Clases,
     onClaseUpdated: (Clases) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    realtime:RealtimeManager,
+    authManager: AuthManager
 ) {
+
     var Nclase by remember { mutableStateOf(clase.Nclase) }
     var nota by remember { mutableStateOf(clase.nota) }
     var nombre by remember { mutableStateOf(clase.nombre) }
     var numero by remember { mutableStateOf(clase.numero) }
+    var uid = authManager.getUsuario()?.uid
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -318,9 +322,9 @@ fun EditClaseDialog(
                         nota = nota,
                         nombre = nombre,
                         numero = numero,
-                        uid = clase.uid
+                        uid = uid.toString()
                     )
-                    onClaseUpdated(updatedClase)
+                    realtime.updateClase(clase.key ?: "", updatedClase)
                     onDismiss()
                 }
             ) {
@@ -371,9 +375,9 @@ fun EditClaseDialog(
 }
 
 
-@Composable
+
 fun updateClases(uid:String, Nclase: String, nota: String, nombre: String, numero:String){
     val dbRef = FirebaseDatabase.getInstance().getReference("clases").child(uid)
-    val claseInfo = Clases(Nclase,nota, nombre, numero, uid)
-    dbRef.setValue(claseInfo)
+    val Clasesinfo = Clases(Nclase, nota, nombre, numero, uid)
+    dbRef.setValue(Clasesinfo)
 }
