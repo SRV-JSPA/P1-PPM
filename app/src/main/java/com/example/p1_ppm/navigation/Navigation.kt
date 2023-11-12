@@ -20,6 +20,7 @@ import com.example.p1_ppm.screens.login.paginaPrincipal_fun
 import com.example.p1_ppm.screens.auth.ForgotPassword
 import com.example.p1_ppm.screens.auth.Login
 import com.example.p1_ppm.screens.auth.SignUp
+import com.example.p1_ppm.screens.login.student.claseViewModel
 
 import com.google.firebase.auth.FirebaseUser
 
@@ -36,6 +37,8 @@ fun Navigation(context: Context, navController: NavHostController = rememberNavC
     val raltime: RealtimeManager = RealtimeManager(context)
 
     val ControllerNav: NavController = NavController(context)
+
+    val viewmodel: claseViewModel = claseViewModel()
 
     Screen {
         NavHost(
@@ -66,7 +69,7 @@ fun Navigation(context: Context, navController: NavHostController = rememberNavC
             }
 
             composable(Routes.PaginaP.route){
-                paginaPrincipal_fun(tipo = true, analytics = analytics, auth = authManager, navigation = navController )
+                paginaPrincipal_fun(tipo = true, analytics = analytics, auth = authManager, navigation = navController, viewmodel = viewmodel)
             }
 
 

@@ -11,12 +11,13 @@ import com.example.p1_ppm.screens.login.student.Hestudiante_fun
 import com.example.p1_ppm.screens.login.student.SearchScreen
 import com.example.p1_ppm.screens.login.student.UsuarioA_fun
 import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
+import com.example.p1_ppm.screens.login.student.claseViewModel
 import com.example.p1_ppm.screens.login.teacher.Htutor_fun
 import com.example.p1_ppm.screens.login.teacher.UsuarioT_fun
 import com.example.p1_ppm.screens.login.teacher.calendarioTutor_fun
 
 @Composable
-fun BottomNavBar_fun(navController:NavHostController, context: Context, authManager: AuthManager) {
+fun BottomNavBar_fun(navController:NavHostController, context: Context, authManager: AuthManager, viewModel: claseViewModel) {
     val realtime = RealtimeManager(context)
     NavHost(
         navController = navController,
@@ -29,7 +30,7 @@ fun BottomNavBar_fun(navController:NavHostController, context: Context, authMana
             calendarioAlumno_fun(navController = navController)
         }
         composable(route = BottomBarScreen.BuscarA.ruta){
-            SearchScreen(navController=navController)
+            SearchScreen(navController=navController, viewModel = viewModel)
         }
         composable(route = BottomBarScreen.PerfilA.ruta){
             UsuarioA_fun(navController=navController)

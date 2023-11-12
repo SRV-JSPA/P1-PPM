@@ -60,12 +60,13 @@ import com.example.p1_ppm.BottomBarScreen
 import com.example.p1_ppm.BottomNavBar_fun
 import com.example.p1_ppm.R
 import com.example.p1_ppm.navigation.Routes
+import com.example.p1_ppm.screens.login.student.claseViewModel
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthManager, navigation: NavController,) {
+fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthManager, navigation: NavController, viewmodel: claseViewModel) {
     val navController = rememberNavController()
     analytics.logScreenView(screenName = Routes.PaginaP.route)
     val user = auth.getUsuario()
@@ -206,7 +207,7 @@ fun paginaPrincipal_fun(tipo:Boolean, analytics: AnalyticsManager, auth: AuthMan
                 }, onDismiss = { showDialog = false })
             }
 
-            BottomNavBar_fun(navController = navController, context = context, authManager = auth)
+            BottomNavBar_fun(navController = navController, context = context, authManager = auth, viewModel = viewmodel)
         }
 
     }

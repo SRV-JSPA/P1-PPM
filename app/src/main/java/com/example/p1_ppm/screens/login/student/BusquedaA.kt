@@ -26,8 +26,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.p1_ppm.Managers.RealtimeManager
+import androidx.lifecycle.LiveData
+import com.example.p1_ppm.Model.Clases
+import androidx.compose.runtime.livedata.observeAsState
 
 class BusquedaA : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,66 +49,95 @@ class BusquedaA : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingPreview4()
+
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(navController: NavController) {
-    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
-    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
-    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
-    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
-    var searchText by remember { mutableStateOf("") }
+fun SearchScreen(navController: NavController, viewModel:claseViewModel) {
+    var busquedaTexto by remember { mutableStateOf("") }
+    val resultados = viewModel.buscarTutorPorNombre(busquedaTexto).observeAsState()
 
-    val keyboardController = LocalSoftwareKeyboardController.current
+    Column {
+        // Agrega un campo de búsqueda
+        TextField(
+            value = busquedaTexto,
+            onValueChange = { busquedaTexto = it },
+            label = { Text("Buscar") }
+        )
 
-    Column(
+        // Muestra los resultados en tarjetas
+        LazyColumn {
+            items(resultados.value ?: emptyList()) { tutor ->
+                TarjetaResultado(tutor)
+            }
+        }
+    }
+}
+
+@Composable
+fun TarjetaResultado(tutor: Clases) {
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clip(MaterialTheme.shapes.medium)
     ) {
-        BasicTextField(
-            value = searchText,
-            onValueChange = { newText ->
-                searchText = newText
-                // Aquí puedes realizar la búsqueda con el nuevo texto
-            },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Search
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    keyboardController?.hide() // Oculta el teclado al presionar "Buscar"
-                    // Aquí puedes realizar la búsqueda con el texto actual
-                }
-            ),
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp)
-        )
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = tutor.nombre,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+                Icon(imageVector = Icons.Default.Person, contentDescription = null, tint = Color.White)
+            }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "Resultados de la búsqueda para: $searchText",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Default.Person, contentDescription = null, tint = Color.White)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = tutor.Nclase,
+                    color = Color.White
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Nota: ${tutor.nota}",
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Numero: ${tutor.numero}",
+                    color = Color.White
+                )
+            }
+        }
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview4() {
-    P1PPmTheme {
-        SearchScreen(navController = rememberNavController())
-
-    }
-}

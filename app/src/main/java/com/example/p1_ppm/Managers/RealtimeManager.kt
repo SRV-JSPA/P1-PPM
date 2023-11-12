@@ -16,6 +16,10 @@ class RealtimeManager(context: Context) {
     private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference.child("clases")
     private val authManager = AuthManager(context)
 
+    private val database = FirebaseDatabase.getInstance()
+    private val clasesReference = database.getReference("clases")
+
+
     fun addClase(clase: Clases) {
         val key = databaseReference.push().key
         if (key != null) {
@@ -49,5 +53,21 @@ class RealtimeManager(context: Context) {
             awaitClose { databaseReference.removeEventListener(listener) }
         }
         return flow
+    }
+
+    fun Busqueda(query: String, callback: (List<Clases>) -> Unit) {
+        clasesReference.orderByChild("Nclase")
+            .startAt(query)
+            .endAt(query + "\uf8ff")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val items = snapshot.children.mapNotNull { it.getValue(Clases::class.java) }
+                    callback(items)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Manejar errores
+                }
+            })
     }
 }
