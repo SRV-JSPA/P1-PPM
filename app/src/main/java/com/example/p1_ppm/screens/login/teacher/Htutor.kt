@@ -141,7 +141,7 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager, authManager: AuthManager
         ) {
             Column(modifier = Modifier.weight(3f)) {
                 Text(
-                    text = clase.Nclase,
+                    text = clase.nclase,
                     fontWeight = FontWeight.Medium,
                     fontSize = 12.sp,
                     maxLines = 1,
@@ -214,7 +214,7 @@ fun AddClaseDialog(onClaseAdded: (Clases) -> Unit, onDialogDismissed: () -> Unit
             Button(
                 onClick = {
                     val newClase = Clases(
-                        Nclase = Nclase,
+                        nclase = Nclase,
                         nota = nota,
                         nombre = nombre,
                         numero = numero,
@@ -305,7 +305,7 @@ fun EditClaseDialog(
     authManager: AuthManager
 ) {
 
-    var Nclase by remember { mutableStateOf(clase.Nclase) }
+    var Nclase by remember { mutableStateOf(clase.nclase) }
     var nota by remember { mutableStateOf(clase.nota) }
     var nombre by remember { mutableStateOf(clase.nombre) }
     var numero by remember { mutableStateOf(clase.numero) }
@@ -318,7 +318,7 @@ fun EditClaseDialog(
             Button(
                 onClick = {
                     val updatedClase = Clases(
-                        Nclase = Nclase,
+                        nclase = Nclase,
                         nota = nota,
                         nombre = nombre,
                         numero = numero,
