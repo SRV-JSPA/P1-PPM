@@ -88,6 +88,9 @@ fun SearchScreen(navController: NavController, viewModel:claseViewModel, realtim
     }
 }
 
+
+
+
 @Composable
 fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
     var showAsignarClaseDialog by remember { mutableStateOf(false) }
