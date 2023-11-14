@@ -30,7 +30,7 @@ fun BottomNavBar_fun(navController:NavHostController, context: Context, authMana
             calendarioAlumno_fun(navController = navController)
         }
         composable(route = BottomBarScreen.BuscarA.ruta){
-            SearchScreen(navController=navController, viewModel = viewModel)
+            SearchScreen(navController=navController, viewModel = viewModel, realtime = realtime)
         }
         composable(route = BottomBarScreen.PerfilA.ruta){
             UsuarioA_fun(navController=navController)

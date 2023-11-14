@@ -41,7 +41,7 @@ class claseViewModel: ViewModel() {
         val resultados = MutableLiveData<List<Clases>>()
 
         // Realiza la consulta en la base de datos
-        database.orderByChild("Nclase").equalTo(Nclase)
+        database.orderByChild("nclase").equalTo(Nclase)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val clases = mutableListOf<Clases>()

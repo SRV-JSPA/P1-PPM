@@ -29,6 +29,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +40,8 @@ import com.example.p1_ppm.Managers.RealtimeManager
 import androidx.lifecycle.LiveData
 import com.example.p1_ppm.Model.Clases
 import androidx.compose.runtime.livedata.observeAsState
+import com.example.p1_ppm.Managers.AuthManager
+import com.example.p1_ppm.screens.login.teacher.DeleteClaseDialog
 
 class BusquedaA : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,29 +62,49 @@ class BusquedaA : ComponentActivity() {
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(navController: NavController, viewModel:claseViewModel) {
+fun SearchScreen(navController: NavController, viewModel:claseViewModel, realtime: RealtimeManager) {
     var busquedaTexto by remember { mutableStateOf("") }
     val resultados = viewModel.buscarTutorPorNombre(busquedaTexto).observeAsState()
+    val res = viewModel.buscarclase(busquedaTexto).observeAsState()
 
     Column {
-        // Agrega un campo de búsqueda
+
         TextField(
             value = busquedaTexto,
             onValueChange = { busquedaTexto = it },
             label = { Text("Buscar") }
         )
 
-        // Muestra los resultados en tarjetas
+
         LazyColumn {
             items(resultados.value ?: emptyList()) { tutor ->
-                TarjetaResultado(tutor)
+                TarjetaResultado(tutor, realtime)
+            }
+
+            items(res.value ?: emptyList()) { clase ->
+                TarjetaResultado(clase, realtime)
             }
         }
     }
 }
 
 @Composable
-fun TarjetaResultado(tutor: Clases) {
+fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
+    var showAsignarClaseDialog by remember { mutableStateOf(false) }
+
+
+
+    if (showAsignarClaseDialog) {
+        AsignarClaseDialog(
+            onConfirmDelete = {
+
+                showAsignarClaseDialog = false
+            },
+            onDismiss = {
+                showAsignarClaseDialog = false
+            }
+        )
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +127,13 @@ fun TarjetaResultado(tutor: Clases) {
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-                Icon(imageVector = Icons.Default.Person, contentDescription = null, tint = Color.White)
+                IconButton(
+                    onClick = {
+                              showAsignarClaseDialog = true
+                    },
+                ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Icon")
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -112,7 +142,6 @@ fun TarjetaResultado(tutor: Clases) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Default.Person, contentDescription = null, tint = Color.White)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = tutor.Nclase,
@@ -138,6 +167,29 @@ fun TarjetaResultado(tutor: Clases) {
             }
         }
     }
+}
+
+@Composable
+fun AsignarClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Asignar clase") },
+        text = { Text("¿Estás seguro que deseas asignarte a esta clase?") },
+        confirmButton = {
+            Button(
+                onClick = onConfirmDelete
+            ) {
+                Text("Aceptar")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = onDismiss
+            ) {
+                Text("Cancelar")
+            }
+        }
+    )
 }
 
 
