@@ -21,11 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.p1_ppm.Managers.CalendarLogic
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
 class CalendarioAlumno {
@@ -34,6 +36,8 @@ class CalendarioAlumno {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun calendarioAlumno_fun(navController: NavController) {
+    CalendarLogic(LocalContext.current)
+
     val daysOfWeek = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo")
     var inputText by remember { mutableStateOf("") }
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris

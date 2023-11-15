@@ -1,6 +1,9 @@
 package com.example.p1_ppm.screens.login.teacher
 
 import android.annotation.SuppressLint
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,8 +32,24 @@ import androidx.navigation.NavHostController
 import com.example.p1_ppm.Managers.AuthManager
 import com.example.p1_ppm.Managers.RealtimeManager
 import com.example.p1_ppm.Model.Clases
+import com.example.p1_ppm.ui.theme.P1PPmTheme
 import com.google.firebase.database.FirebaseDatabase
 
+class Htutor : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            P1PPmTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                }
+            }
+        }
+    }
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
