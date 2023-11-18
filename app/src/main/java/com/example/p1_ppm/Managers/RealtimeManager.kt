@@ -58,9 +58,9 @@ class RealtimeManager(context: Context) {
     }
 
     fun addClaseAS(clase: Clases) {
-
-        if (clase.key != null) {
-            dReference.child(clase.key).setValue(clase)
+        val key = databaseReference.push().key
+        if (key != null) {
+            dReference.child(key).setValue(clase)
         }
     }
 

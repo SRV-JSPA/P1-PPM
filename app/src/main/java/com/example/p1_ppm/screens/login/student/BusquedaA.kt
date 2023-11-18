@@ -90,6 +90,7 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
 
     if (showAsignarClaseDialog) {
         AsignarClaseDialog(
+            clase = tutor,
             onClaseAdded = { clase ->
                 realtime.addClaseAS(clase)
                 showAsignarClaseDialog = false
@@ -164,14 +165,17 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
 }
 
 @Composable
-fun AsignarClaseDialog(onClaseAdded: (Clases) -> Unit, onDismiss: () -> Unit,) {
+fun AsignarClaseDialog(clase: Clases,onClaseAdded: (Clases) -> Unit, onDismiss: () -> Unit,) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("Asignar clase") },
         text = { Text("¿Estás seguro que deseas asignarte a esta clase?") },
         confirmButton = {
             Button(
-                onClick = onDismiss
+                onClick = {
+                    onClaseAdded(clase)
+                    onDismiss()
+                }
             ) {
                 Text("Aceptar")
             }
