@@ -198,7 +198,7 @@ fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
 val coursesList = listOf(
     "Curso 1: Introducción a Jetpack Compose",
     "Curso 2: Desarrollo de Aplicaciones Android",
-    "Curso 3: Diseño de Interfaces de Usuario",
+    "Curso 3: Diseño de Interfaz de Usuario",
 )
 
 
