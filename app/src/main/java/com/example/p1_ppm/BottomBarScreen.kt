@@ -29,8 +29,8 @@ sealed class BottomBarScreen(
         icono = Icons.Default.Search
     )
     object PerfilA : BottomBarScreen(
-        ruta = "perfil",
-        titulo = "perfil",
+        ruta = "perfilA",
+        titulo = "perfilA",
         icono = Icons.Default.Person
     )
 

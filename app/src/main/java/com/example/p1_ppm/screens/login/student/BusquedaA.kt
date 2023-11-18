@@ -171,7 +171,7 @@ fun AsignarClaseDialog(onClaseAdded: (Clases) -> Unit, onDismiss: () -> Unit,) {
         text = { Text("¿Estás seguro que deseas asignarte a esta clase?") },
         confirmButton = {
             Button(
-                onClick =
+                onClick = onDismiss
             ) {
                 Text("Aceptar")
             }

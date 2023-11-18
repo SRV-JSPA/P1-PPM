@@ -88,13 +88,11 @@ fun UsuarioA_fun(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Título
         Text(
             text = "Mi Perfil",
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Círculo con nombre y descripción
         Box(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primary)

@@ -82,7 +82,6 @@ fun UsuarioT_fun(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Título
         Text(
             text = "Mi Perfil",
             modifier = Modifier.padding(bottom = 16.dp)
@@ -103,7 +102,6 @@ fun UsuarioT_fun(navController: NavController) {
                         .background(Color(color3), CircleShape)
                 ) {
                     selectedImageUri?.let { uri ->
-                        // Puedes mostrar la imagen aquí, por ejemplo:
                         Image(
                             painter = rememberImagePainter(uri),
                             contentDescription = null,
@@ -154,8 +152,6 @@ fun UsuarioT_fun(navController: NavController) {
         )
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             for (i in 1..5) {
-                // Aquí simplemente estoy usando un círculo para representar la estrella
-                // Puedes reemplazar esto con un Icon o una imagen de una estrella
                 Box(
                     modifier = Modifier
                         .size(24.dp)
