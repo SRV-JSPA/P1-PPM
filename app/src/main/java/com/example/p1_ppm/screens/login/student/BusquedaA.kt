@@ -83,12 +83,15 @@ fun SearchScreen(navController: NavController, viewModel:claseViewModel, realtim
 fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
     var showAsignarClaseDialog by remember { mutableStateOf(false) }
 
-
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
+    val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
+    val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
+    val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
 
     if (showAsignarClaseDialog) {
         AsignarClaseDialog(
-            onConfirmDelete = {
-
+            onClaseAdded = { clase ->
+                realtime.addClaseAS(clase)
                 showAsignarClaseDialog = false
             },
             onDismiss = {
@@ -100,11 +103,11 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(MaterialTheme.shapes.medium)
+            .background(color = Color(color1))
     ) {
         Column(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.primary)
+
                 .padding(16.dp)
         ) {
             Row(
@@ -116,7 +119,7 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
                 Text(
                     text = tutor.nombre,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = Color.Black
                 )
                 IconButton(
                     onClick = {
@@ -136,7 +139,7 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = tutor.nclase,
-                    color = Color.White
+                    color = Color.Black
                 )
             }
 
@@ -148,12 +151,12 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
             ) {
                 Text(
                     text = "Nota: ${tutor.nota}",
-                    color = Color.White
+                    color = Color.Black
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = "Numero: ${tutor.numero}",
-                    color = Color.White
+                    color = Color.Black
                 )
             }
         }
@@ -161,14 +164,14 @@ fun TarjetaResultado(tutor: Clases, realtime: RealtimeManager) {
 }
 
 @Composable
-fun AsignarClaseDialog(onConfirmDelete: () -> Unit, onDismiss: () -> Unit) {
+fun AsignarClaseDialog(onClaseAdded: (Clases) -> Unit, onDismiss: () -> Unit,) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("Asignar clase") },
         text = { Text("¿Estás seguro que deseas asignarte a esta clase?") },
         confirmButton = {
             Button(
-                onClick = onConfirmDelete
+                onClick =
             ) {
                 Text("Aceptar")
             }
