@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PickImageFromGallery() {
+fun PickImageFromGalleryT() {
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
@@ -80,5 +80,5 @@ fun PickImageFromGallery() {
 @Preview
 @Composable
 fun selectImage(){
-    PickImageFromGallery()
+    PickImageFromGalleryT()
 }
