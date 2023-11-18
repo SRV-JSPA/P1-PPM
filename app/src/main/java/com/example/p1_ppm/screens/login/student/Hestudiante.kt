@@ -36,7 +36,6 @@ class Hestudiante : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingPreview8()
                 }
             }
         }
@@ -78,28 +77,5 @@ fun Hestudiante_fun(navController: NavController) {
 
 }
 
-@Composable
-fun tablaE(index: Int, text: String?) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
 
-    ) {
-        text?.let {
-            Text(
-                text = it,
-                modifier = Modifier.padding(4.dp),
-                style = TextStyle(fontSize = 16.sp)
-            )
-        }
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview8() {
-    P1PPmTheme {
-        Hestudiante_fun(navController = rememberNavController())
-    }
-}

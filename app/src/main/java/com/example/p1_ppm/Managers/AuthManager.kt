@@ -11,9 +11,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.p1_ppm.R
-import com.example.p1_ppm.navigation.Routes
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
