@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.graphics.Paint.Align
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -33,6 +34,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.material.Button
 import androidx.compose.runtime.*
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -164,6 +166,7 @@ fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -174,7 +177,7 @@ fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         imageUri?.let {
@@ -188,8 +191,17 @@ fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Button(onClick = { launcher.launch("image/*") }) {
-            Text(text = "Pick Image")
+        Button(
+            onClick = { launcher.launch("image/*") },
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(8.dp)
+
+        ){
+            Text(
+                color = Color(color1),
+                text = "Cambiar imagen"
+            )
         }
     }
 }
