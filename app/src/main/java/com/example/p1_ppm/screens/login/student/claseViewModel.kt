@@ -16,8 +16,6 @@ class claseViewModel: ViewModel() {
 
     fun buscarTutorPorNombre(nombre: String): LiveData<List<Clases>> {
         val resultados = MutableLiveData<List<Clases>>()
-
-        // Realiza la consulta en la base de datos
         database.orderByChild("nombre").equalTo(nombre)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -30,7 +28,6 @@ class claseViewModel: ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Manejar el error
                 }
             })
 
@@ -40,7 +37,7 @@ class claseViewModel: ViewModel() {
     fun buscarclase(Nclase: String): LiveData<List<Clases>> {
         val resultados = MutableLiveData<List<Clases>>()
 
-        // Realiza la consulta en la base de datos
+
         database.orderByChild("nclase").equalTo(Nclase)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -53,7 +50,7 @@ class claseViewModel: ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Manejar el error
+
                 }
             })
 

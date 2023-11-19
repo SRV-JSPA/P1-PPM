@@ -22,11 +22,8 @@ class RealtimeManager(context: Context) {
     private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference.child("clases")
     private val authManager = AuthManager(context)
 
-    private val database = FirebaseDatabase.getInstance()
 
     private val dReference: DatabaseReference = FirebaseDatabase.getInstance().reference.child("clasesAS")
-
-
 
 
 
@@ -44,6 +41,8 @@ class RealtimeManager(context: Context) {
 
     fun deleteClase(claseId: String, clase: Clases) {
         databaseReference.child(claseId).removeValue()
+
+
     }
 
     fun updateClase(claseId: String, updateClase: Any?) {
