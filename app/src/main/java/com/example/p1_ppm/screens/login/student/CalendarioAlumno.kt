@@ -1,5 +1,9 @@
 package com.example.p1_ppm.screens.login.student
 
+import android.os.Bundle
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,15 +35,32 @@ import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.Managers.CalendarLogic
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 
-class CalendarioAlumno {
+class CalendarioAlumno : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            P1PPmTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun calendarioAlumno_fun(navController: NavController) {
-    CalendarLogic(LocalContext.current)
+   // val eventos = CalendarLogic(LocalContext.current).eventos
 
-    val daysOfWeek = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo")
+    var str by remember { mutableStateOf("") }
+    str = "asdas"
+    
+    val daysOfWeek = listOf("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo")
     var inputText by remember { mutableStateOf("") }
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
@@ -123,6 +145,6 @@ fun calendarioAlumno_fun(navController: NavController) {
 @Composable
 fun AlumnoPreview() {
     P1PPmTheme {
-        calendarioAlumno_fun(navController = rememberNavController())
+        //calendarioAlumno_fun(navController = rememberNavController())
     }
 }

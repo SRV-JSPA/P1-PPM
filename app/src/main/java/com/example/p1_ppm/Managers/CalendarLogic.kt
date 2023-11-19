@@ -1,9 +1,16 @@
 package com.example.p1_ppm.Managers
 
+import androidx.lifecycle.lifecycleScope
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.p1_ppm.Model.Clases
+import com.example.p1_ppm.Model.GetEventModel
 import com.example.p1_ppm.util.Constants.REQUEST_GOOGLE_PLAY_SERVICES
 import com.example.p1_ppm.util.Constants.REQUEST_ACCOUNT_PICKER
 import com.google.android.gms.common.ConnectionResult
@@ -18,19 +25,29 @@ import com.google.api.services.calendar.Calendar
 import com.google.api.services.calendar.CalendarScopes
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.EventDateTime
+import com.google.api.services.calendar.model.Events
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class CalendarLogic(private val context: Context) {
+class CalendarLogic(private val context: Context):ViewModel() {
     private var mCredential: GoogleAccountCredential? = null
     private var mService: Calendar? = null
+    var eventos : ArrayList<GetEventModel> = arrayListOf()
     init {
         Log.d("CALENDAR", "SE inicio el objeto")
         initCredentials()
-        getDataFromCalendar()
+
+        val result = viewModelScope.async {
+            getDataFromCalendar()
+        }
     }
+
+
     private fun initCredentials() {
         mCredential = GoogleAccountCredential.usingOAuth2(
             context,
@@ -54,11 +71,14 @@ class CalendarLogic(private val context: Context) {
 
 
 
-    fun getDataFromCalendar(){
+    fun getDataFromCalendar(): LiveData<List<GetEventModel>> {
         val now = DateTime(System.currentTimeMillis())
+        val resultado = MutableLiveData<List<GetEventModel>>()
+        val eventStrings = mutableListOf<GetEventModel>()
+
         try {
             Log.d("Google proc", "se comenzó")
-            val events = mService!!.events().list("mcorderoeb5bm2019071@gmail.com")
+            val events = mService!!.events().list("goawhg@gmail.com")
                 .setMaxResults(10)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
@@ -70,8 +90,20 @@ class CalendarLogic(private val context: Context) {
 
             for (event in items) {
                 Log.d("Mostrar evento", "Evento: "+event.summary+" /"+event.start.dateTime.toString()+" /"+event.end.dateTime)
+                var start = event.start.dateTime
+                if (start == null) {
+                    start = event.start.date
+                }
 
+                eventStrings.add (
+                    GetEventModel(
+                        summary = event.summary,
+                        startDate = start.toString()
+                    )
+                )
             }
+            resultado.value = eventStrings
+            return resultado
 
         } catch (e: UserRecoverableAuthIOException) {
 
@@ -80,8 +112,8 @@ class CalendarLogic(private val context: Context) {
         } catch (e: IOException) {
             Log.d("Google error", e.message.toString())
             Log.d("Google error", e.stackTraceToString())
-
         }
+        return resultado
     }
 
     fun getResultsFromApi(activity: Activity) {
@@ -101,7 +133,6 @@ class CalendarLogic(private val context: Context) {
             }
         }
     }
-
 
     private fun isGooglePlayServicesAvailable(): Boolean {
         val apiAvailability = GoogleApiAvailability.getInstance()
