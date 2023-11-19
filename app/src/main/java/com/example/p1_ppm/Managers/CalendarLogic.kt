@@ -136,7 +136,7 @@ class CalendarLogic(private val context: Context):ViewModel() {
             // Ejecuta la operación en un hilo secundario
             CoroutineScope(Dispatchers.IO).launch {
                 //        getDataFromCalendar()
-                setDataFromCalendar()
+
             }
         }
     }
@@ -163,26 +163,26 @@ class CalendarLogic(private val context: Context):ViewModel() {
         return networkInfo?.isConnected == true
     }
 
-    fun setDataFromCalendar(){
+    fun setDataFromCalendar(nombre:String,dia:String,mes:String,año:String){
 
         try {
             Log.d("Google proc", "se comenzó")
             val event = Event()
-                .setSummary("EVENTO NUEVO")
+                .setSummary(nombre)
                 .setLocation("Ciudad de Guatemala, Edificio CIT Universidad del Valle")
                 .setDescription("Esta es una prueba")
-            val startDateTime = DateTime("2023-11-06T13:00:00-06:00")
+            val startDateTime = DateTime(año+"-"+mes+"-"+dia+"T13:00:00-06:00")
             val start = EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone("America/Guatemala")
             event.start = start
-            val endDateTime = DateTime("2023-11-06T16:00:00-06:00")
+            val endDateTime = DateTime(año+"-"+mes+"-"+dia+"T13:00:00-06:00")
             val end = EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Guatemala")
             event.end = end
 
-            val insertado = mService!!.events().insert("mcorderoeb5bm2019071@gmail.com",event).execute()
+            val insertado = mService!!.events().insert("goawhg@gmail.com",event).execute()
             Log.d("Google proc", "Evento insertado: ${insertado.htmlLink}")
 
         } catch (e: UserRecoverableAuthIOException) {
