@@ -1,5 +1,6 @@
 package com.example.p1_ppm.screens.login.teacher
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -42,17 +43,23 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.viewModelScope
 import com.example.p1_ppm.screens.login.student.TarjetaResultado
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class CalendarioTutor {
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun calendarioTutor_fun(navController: NavController) {
 
     val calendario = CalendarLogic(LocalContext.current)
-    val eventos = calendario.getDataFromCalendar().observeAsState()
+    val eventos = calendario.eventos
+
 
     val daysOfWeek = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo")
     var inputText by remember { mutableStateOf("") }
@@ -60,6 +67,8 @@ fun calendarioTutor_fun(navController: NavController) {
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
     val color4 = android.graphics.Color.parseColor("#ED639E")  // Fusia
+
+
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -124,9 +133,9 @@ fun calendarioTutor_fun(navController: NavController) {
 
                 }
             }
-            if(!eventos.value?.isEmpty()!!){
+            if(!eventos.isEmpty()){
                 LazyColumn {
-                    items(eventos.value ?: emptyList()) { tutor ->
+                    items(eventos?: emptyList()) { tutor ->
                         diaConEvento(tutor)
                     }
                 }
@@ -157,6 +166,7 @@ fun diaConEvento(evento: GetEventModel) {
 
     )
 }
+
 
 @Preview
 @Composable
