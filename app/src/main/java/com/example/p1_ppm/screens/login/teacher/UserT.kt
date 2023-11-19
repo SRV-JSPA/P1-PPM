@@ -35,6 +35,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.material.Button
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.rememberImagePainter
@@ -152,7 +154,7 @@ fun UsuarioT_fun(navController: NavController) {
                 )
             }
         }
-            // Calificación (puedes usar un RatingBar u otro elemento de tu elección)
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -171,7 +173,7 @@ fun UsuarioT_fun(navController: NavController) {
                 .padding(16.dp)
         )
 
-        // Lista de comentarios (puedes mostrar los comentarios aquí)
+
 
     }
 }
@@ -205,7 +207,12 @@ fun PickImageFromGalleryT(onImageSelected: (Uri?) -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Button(onClick = { launcher.launch("image/*") }) {
+        Button(
+            onClick = { launcher.launch("image/*") },
+            modifier = Modifier
+                .align(End)
+                .padding(8.dp)
+        ) {
             Text(text = "Pick Image")
         }
     }
