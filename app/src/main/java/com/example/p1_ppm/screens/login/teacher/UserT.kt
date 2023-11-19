@@ -17,7 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.BasicTextField
@@ -28,6 +28,7 @@ import com.example.p1_ppm.screens.login.student.coursesList
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.graphics.Paint.Align
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -37,9 +38,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.material.Button
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.End
+import androidx.compose.ui.Alignment.Companion.Top
+import androidx.compose.ui.Alignment.Companion.TopEnd
+import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.rememberImagePainter
+import androidx.compose.ui.Alignment.Companion as Alignment
 
 class UserT : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,6 +188,7 @@ fun PickImageFromGalleryT(onImageSelected: (Uri?) -> Unit) {
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -193,7 +199,7 @@ fun PickImageFromGalleryT(onImageSelected: (Uri?) -> Unit) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         imageUri?.let {
@@ -213,7 +219,12 @@ fun PickImageFromGalleryT(onImageSelected: (Uri?) -> Unit) {
                 .align(End)
                 .padding(8.dp)
         ) {
-            Text(text = "Pick Image")
+
+            Text(
+                color = Color(color1),
+                text = "Cambiar imagen"
+            )
+
         }
     }
 }
