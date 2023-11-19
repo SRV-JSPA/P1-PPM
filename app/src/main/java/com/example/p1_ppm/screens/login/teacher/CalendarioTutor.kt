@@ -46,7 +46,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewModelScope
 import com.example.p1_ppm.screens.login.student.TarjetaResultado
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CalendarioTutor {
@@ -58,7 +60,22 @@ class CalendarioTutor {
 fun calendarioTutor_fun(navController: NavController) {
 
     val calendario = CalendarLogic(LocalContext.current)
-    val eventos = calendario.eventos
+    var eventos by remember{ mutableStateOf(mutableListOf<GetEventModel>())}
+    val cont by remember{ mutableStateOf(0)}
+
+    var estado by remember { mutableStateOf(false)}
+    val coroutineScope = rememberCoroutineScope()
+    // Composable function
+    LaunchedEffect(Unit) {
+        // Perform data refresh operation
+
+        eventos = calendario.eventos
+
+        estado = true
+    }
+    if(estado==true){
+        eventoColumna(eventos = eventos)
+    }
 
 
     val daysOfWeek = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo")
@@ -133,13 +150,7 @@ fun calendarioTutor_fun(navController: NavController) {
 
                 }
             }
-            if(!eventos.isEmpty()){
-                LazyColumn {
-                    items(eventos?: emptyList()) { tutor ->
-                        diaConEvento(tutor)
-                    }
-                }
-            }
+
 
 
         }
@@ -167,6 +178,16 @@ fun diaConEvento(evento: GetEventModel) {
     )
 }
 
+@Composable
+fun eventoColumna(eventos:MutableList<GetEventModel>) {
+    if(!eventos.isEmpty()){
+        LazyColumn {
+            items(eventos?: emptyList()) { tutor ->
+                diaConEvento(tutor)
+            }
+        }
+    }
+}
 
 @Preview
 @Composable

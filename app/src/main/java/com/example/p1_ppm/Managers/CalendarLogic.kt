@@ -44,25 +44,14 @@ class CalendarLogic(private val context: Context):ViewModel() {
 
         CoroutineScope(Dispatchers.IO).launch {
             eventos = getDataFromCalendar()
-        }
-        if (eventos.isEmpty()) {
-            Log.d("NO HAY NADA EN EVENTOS", " ")
-        } else {
-            Log.d("SI HAY NADA EN EVENTOS", " ")
             for(i in eventos){
-                Log.d("En teoria eventos", i.summary.toString())
+                Log.d("En teoría adentro", i.summary.toString())
             }
         }
+
     }
 
-    fun getEeventos():MutableList<GetEventModel>{
-        val result =viewModelScope.async {
-            getDataFromCalendar()
-        }
-        result.invokeOnCompletion {
-            // aqui debería de retornear en teoria el result.getCompleted()
-        }
-    }
+
     private fun initCredentials() {
         mCredential = GoogleAccountCredential.usingOAuth2(
             context,
