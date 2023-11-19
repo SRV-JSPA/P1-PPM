@@ -1,27 +1,18 @@
 package com.example.p1_ppm.screens.login.teacher
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,27 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.Managers.CalendarLogic
-import com.example.p1_ppm.Managers.RealtimeManager
-import com.example.p1_ppm.Model.Clases
 import com.example.p1_ppm.Model.GetEventModel
 import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
 import com.example.p1_ppm.ui.theme.P1PPmTheme
-import com.google.protobuf.Empty
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.lifecycle.viewModelScope
-import com.example.p1_ppm.screens.login.student.TarjetaResultado
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class CalendarioTutor {
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,20 +42,15 @@ fun calendarioTutor_fun(navController: NavController) {
 
     val calendario = CalendarLogic(LocalContext.current)
     var eventos by remember{ mutableStateOf(mutableListOf<GetEventModel>())}
-    val cont by remember{ mutableStateOf(0)}
+    var estado by remember{ mutableStateOf(false)}
 
-    var estado by remember { mutableStateOf(false)}
     val coroutineScope = rememberCoroutineScope()
-    // Composable function
-    LaunchedEffect(Unit) {
-        // Perform data refresh operation
 
-        eventos = calendario.eventos
-
+    LaunchedEffect(true) {
+        coroutineScope.launch (Dispatchers.IO){
+            eventos = calendario.getDataFromCalendar()
+        }
         estado = true
-    }
-    if(estado==true){
-        eventoColumna(eventos = eventos)
     }
 
 
@@ -93,14 +69,17 @@ fun calendarioTutor_fun(navController: NavController) {
     ) {
     }
 
+
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Row(modifier = Modifier
-            .padding(16.dp),
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
 
             ){
             Text(
@@ -147,7 +126,13 @@ fun calendarioTutor_fun(navController: NavController) {
                             .padding(8.dp)
 
                     )
-
+                    if(estado){
+                        LazyColumn {
+                            items(eventos?: emptyList()) { tutor ->
+                                diaConEvento(tutor,day)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -165,29 +150,42 @@ fun calendarioTutor_fun(navController: NavController) {
     }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun diaConEvento(evento: GetEventModel) {
+fun diaConEvento(evento: GetEventModel,diaCaja:String) {
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
-    Text(
-        text = evento.summary.toString(),
-        color = Color(color2),
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier
-            .padding(8.dp)
+    var año = ""+evento.startDate[0]+evento.startDate[1]+evento.startDate[2]+evento.startDate[3]
+    var mes = ""+evento.startDate[5]+evento.startDate[6]
+    var dia = ""+evento.startDate[8]+evento.startDate[9]
+    val currentDate: LocalDate = LocalDate.of(año.toInt(), mes.toInt(), dia.toInt())
+    val diaDeSemana = getDiaDeSemana(currentDate.dayOfWeek.toString())
 
-    )
-}
+    if(diaDeSemana.equals(diaCaja)){
+        Text(
+            text = evento.summary.toString(),
+            color = Color(color2),
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .padding(8.dp)
 
-@Composable
-fun eventoColumna(eventos:MutableList<GetEventModel>) {
-    if(!eventos.isEmpty()){
-        LazyColumn {
-            items(eventos?: emptyList()) { tutor ->
-                diaConEvento(tutor)
-            }
-        }
+        )
     }
 }
+
+fun getDiaDeSemana(dayOfWeek: String): Any {
+    return when (dayOfWeek) {
+        "MONDAY" -> "Lunes"
+        "TUESDAY" -> "Martes"
+        "WEDNESDAY" -> "Miércoles"
+        "THURSDAY" -> "Jueves"
+        "FRIDAY" -> "Viernes"
+        "SATURDAY" -> "Sábado"
+        "SUNDAY" -> "Domingo"
+        else -> {}
+    }
+}
+
 
 @Preview
 @Composable
