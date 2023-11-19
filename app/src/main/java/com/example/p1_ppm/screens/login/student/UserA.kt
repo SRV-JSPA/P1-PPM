@@ -46,7 +46,7 @@ class UserA : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             P1PPmTheme {
-                // A surface container using the 'background' color from the theme
+              
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -101,7 +101,7 @@ fun UsuarioA_fun(navController: NavController) {
                         .background(Color(color3), CircleShape)
                 ) {
                     selectedImageUri?.let { uri ->
-                        // Puedes mostrar la imagen aquí, por ejemplo:
+
                         Image(
                             painter = rememberImagePainter(uri),
                             contentDescription = null,
@@ -113,53 +113,17 @@ fun UsuarioA_fun(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                Text(
-                    text = "Nombre deL Alumno",
-                    color = Color(color1)
-                )
 
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = "Descripción del Alumno",
-                    color = Color(color1)
-                )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        // Texto "Cursos tomados"
-        Text(
-            text = "Cursos tomados",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
 
-        // Lista de cursos tomados
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(coursesList) { course ->
-                CourseItem(course)
-            }
-        }
+
     }
 }
 
-@Composable
-fun CourseItem(course: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-    ) {
-        Text(
-            text = course,
-            modifier = Modifier.padding(16.dp)
-        )
-    }
-}
+
 
 @Composable
 fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
@@ -207,19 +171,6 @@ fun PickImageFromGalleryA(onImageSelected: (Uri?) -> Unit) {
 }
 
 
-val coursesList = listOf(
-    "Curso 1: Introducción a Jetpack Compose",
-    "Curso 2: Desarrollo de Aplicaciones Android",
-    "Curso 5: Diseño de Interfaz de Usuario",
-)
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview5() {
-    P1PPmTheme {
-        UsuarioA_fun(
-            navController = rememberNavController()
-        )
-    }
-}
+

@@ -23,8 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavController
-import com.example.p1_ppm.screens.login.student.CourseItem
-import com.example.p1_ppm.screens.login.student.coursesList
+
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -111,72 +110,20 @@ fun UsuarioT_fun(navController: NavController) {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(35.dp))
 
-                Text(
-                    text = "Nombre del Tutor",
-                    color = Color(color1)
-                )
 
-                Spacer(modifier = Modifier.height(4.dp))
 
-                Text(
-                    text = "Descripción del Tutor",
-                    color = Color(color1)
-                )
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = "Cursos que imparte",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(coursesList) { course ->
-                CourseItem(course)
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Texto "Calificación"
-        Text(
-            text = "Calificación",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            for (i in 1..5) {
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .background(Color.Yellow, CircleShape)
-                )
-            }
-        }
 
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        // Texto "Comentarios"
-        Text(
-            text = "Comentarios",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        var comentario by remember { mutableStateOf(TextFieldValue()) }
-        BasicTextField(
-            value = comentario,
-            onValueChange = { comentario = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.LightGray)
-                .padding(16.dp)
-        )
+
+
+
 
 
 
@@ -230,23 +177,6 @@ fun PickImageFromGalleryT(onImageSelected: (Uri?) -> Unit) {
 }
 
 
-@Composable
-fun CourseItemT(course: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-    ) {
-        Text(
-            text = course,
-            modifier = Modifier.padding(16.dp)
-        )
-    }
-}
 
-val coursesListT = listOf(
-    "Curso 1: Introducción a Jetpack Compose",
-    "Curso 2: Desarrollo de Aplicaciones Android",
-    "Curso 3: Diseño de Interfaces de Usuario",
-)
+
 
