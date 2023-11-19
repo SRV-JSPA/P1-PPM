@@ -15,7 +15,7 @@ sealed class BottomBarScreen(
 ){
     object HomeA : BottomBarScreen(
         ruta = "homeA",
-        titulo = "homeA",
+        titulo = "Home",
         icono = Icons.Default.Home
     )
     object CalendarioA : BottomBarScreen(
@@ -24,19 +24,19 @@ sealed class BottomBarScreen(
         icono = Icons.Default.DateRange
     )
     object BuscarA : BottomBarScreen(
-        ruta = "buscar",
-        titulo = "buscar",
+        ruta = "Buscar",
+        titulo = "Buscar",
         icono = Icons.Default.Search
     )
     object PerfilA : BottomBarScreen(
         ruta = "perfilA",
-        titulo = "perfilA",
+        titulo = "Perfil",
         icono = Icons.Default.Person
     )
 
     object HomeT : BottomBarScreen(
         ruta = "home",
-        titulo = "home",
+        titulo = "Home",
         icono = Icons.Default.Home
     )
     object CalendarioT : BottomBarScreen(
@@ -47,7 +47,7 @@ sealed class BottomBarScreen(
 
     object PerfilT : BottomBarScreen(
         ruta = "perfil",
-        titulo = "perfil",
+        titulo = "Perfil",
         icono = Icons.Default.Person
     )
 

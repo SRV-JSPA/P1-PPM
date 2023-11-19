@@ -24,7 +24,7 @@ fun BottomNavBar_fun(navController:NavHostController, context: Context, authMana
         startDestination = BottomBarScreen.HomeA.ruta
     ){
         composable(route = BottomBarScreen.HomeA.ruta){
-            Hestudiante_fun(navController = navController)
+            Hestudiante_fun(navController = navController, realtime = realtime, authManager = authManager)
         }
         composable(route = BottomBarScreen.CalendarioA.ruta){
             calendarioAlumno_fun(navController = navController)

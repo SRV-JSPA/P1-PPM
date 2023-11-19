@@ -83,7 +83,7 @@ fun Htutor_fun(navController: NavHostController, realtime: RealtimeManager, auth
             }
         }
     ) { _  ->
-        if(!clases.isNullOrEmpty()) {
+        if(clases.isNotEmpty()) {
             LazyColumn {
                 clases.forEach { clase ->
                     item {
@@ -117,7 +117,7 @@ fun ClaseItem(clase: Clases, realtime: RealtimeManager, authManager: AuthManager
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
 
     val onDeleteClaseConfirmed: () -> Unit = {
-        realtime.deleteClase(clase.key ?: "")
+        realtime.deleteClase(clase.key ?: "", clase)
     }
 
 
