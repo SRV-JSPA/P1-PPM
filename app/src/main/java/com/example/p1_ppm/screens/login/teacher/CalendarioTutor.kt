@@ -5,9 +5,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.List
@@ -25,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.p1_ppm.Managers.CalendarLogic
 import com.example.p1_ppm.Model.GetEventModel
+
 import com.example.p1_ppm.screens.login.student.calendarioAlumno_fun
 import com.example.p1_ppm.ui.theme.P1PPmTheme
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +49,11 @@ fun calendarioTutor_fun(navController: NavController) {
     var eventos by remember{ mutableStateOf(mutableListOf<GetEventModel>())}
     var estado by remember{ mutableStateOf(false)}
 
+    var inputTextN by remember { mutableStateOf("") }
+    var inputTextD by remember { mutableStateOf("") }
+    var inputTextM by remember { mutableStateOf("") }
+    var inputTextA by remember { mutableStateOf("") }
+
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(true) {
@@ -55,7 +65,7 @@ fun calendarioTutor_fun(navController: NavController) {
 
 
     val daysOfWeek = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo")
-    var inputText by remember { mutableStateOf("") }
+
     val color1 = android.graphics.Color.parseColor("#d6d1f5")  // Gris
     val color2 = android.graphics.Color.parseColor("#4535aa")  // Azul
     val color3 = android.graphics.Color.parseColor("#b05cba")  // Morado
@@ -74,6 +84,7 @@ fun calendarioTutor_fun(navController: NavController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
+
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -136,17 +147,58 @@ fun calendarioTutor_fun(navController: NavController) {
                 }
             }
 
-
-
         }
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { inputText = it },
-            label = { Text(text = "Clase - Hora") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        )
+
+        Column (modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            ,verticalArrangement = Arrangement.spacedBy(8.dp)
+        ){
+            OutlinedTextField(
+                value = inputTextN,
+                onValueChange = { inputTextN = it },
+                label = { Text(text = "Clase") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+            OutlinedTextField(
+                value = inputTextA,
+                onValueChange = { inputTextA= it },
+                label = { Text(text = "Año") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+            OutlinedTextField(
+                value = inputTextM,
+                onValueChange = { inputTextM = it },
+                label = { Text(text = "Mes") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+            OutlinedTextField(
+                value = inputTextD,
+                onValueChange = { inputTextD = it },
+                label = { Text(text = "Dia") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+            Button(
+                onClick = {
+
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(color3)),
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(text = "Insertar Tutoria")
+            }
+        }
+
     }
 }
 
@@ -161,9 +213,10 @@ fun diaConEvento(evento: GetEventModel,diaCaja:String) {
     val currentDate: LocalDate = LocalDate.of(año.toInt(), mes.toInt(), dia.toInt())
     val diaDeSemana = getDiaDeSemana(currentDate.dayOfWeek.toString())
 
+    var hora = ""+evento.startDate[11]+evento.startDate[12]+":"+evento.startDate[14]+evento.startDate[15]
     if(diaDeSemana.equals(diaCaja)){
         Text(
-            text = evento.summary.toString(),
+            text = evento.summary.toString()+", "+hora,
             color = Color(color2),
             fontWeight = FontWeight.Bold,
             modifier = Modifier
