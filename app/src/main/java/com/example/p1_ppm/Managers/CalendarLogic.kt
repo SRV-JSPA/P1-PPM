@@ -37,17 +37,32 @@ import java.io.IOException
 class CalendarLogic(private val context: Context):ViewModel() {
     private var mCredential: GoogleAccountCredential? = null
     private var mService: Calendar? = null
-    var eventos : ArrayList<GetEventModel> = arrayListOf()
+    var eventos = mutableListOf<GetEventModel>()
     init {
         Log.d("CALENDAR", "SE inicio el objeto")
         initCredentials()
 
-        val result = viewModelScope.async {
-            getDataFromCalendar()
+        CoroutineScope(Dispatchers.IO).launch {
+            eventos = getDataFromCalendar()
+        }
+        if (eventos.isEmpty()) {
+            Log.d("NO HAY NADA EN EVENTOS", " ")
+        } else {
+            Log.d("SI HAY NADA EN EVENTOS", " ")
+            for(i in eventos){
+                Log.d("En teoria eventos", i.summary.toString())
+            }
         }
     }
 
-
+    fun getEeventos():MutableList<GetEventModel>{
+        val result =viewModelScope.async {
+            getDataFromCalendar()
+        }
+        result.invokeOnCompletion {
+            // aqui debería de retornear en teoria el result.getCompleted()
+        }
+    }
     private fun initCredentials() {
         mCredential = GoogleAccountCredential.usingOAuth2(
             context,
@@ -71,9 +86,8 @@ class CalendarLogic(private val context: Context):ViewModel() {
 
 
 
-    fun getDataFromCalendar(): LiveData<List<GetEventModel>> {
+     fun getDataFromCalendar(): MutableList<GetEventModel> {
         val now = DateTime(System.currentTimeMillis())
-        val resultado = MutableLiveData<List<GetEventModel>>()
         val eventStrings = mutableListOf<GetEventModel>()
 
         try {
@@ -102,8 +116,8 @@ class CalendarLogic(private val context: Context):ViewModel() {
                     )
                 )
             }
-            resultado.value = eventStrings
-            return resultado
+
+            return eventStrings
 
         } catch (e: UserRecoverableAuthIOException) {
 
@@ -113,8 +127,12 @@ class CalendarLogic(private val context: Context):ViewModel() {
             Log.d("Google error", e.message.toString())
             Log.d("Google error", e.stackTraceToString())
         }
-        return resultado
+        return eventStrings
     }
+
+
+
+
 
     fun getResultsFromApi(activity: Activity) {
         if (!isGooglePlayServicesAvailable()) {
